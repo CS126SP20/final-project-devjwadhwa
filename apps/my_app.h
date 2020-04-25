@@ -27,6 +27,7 @@ class MyApp : public cinder::app::App {
   mylibrary::Engine engine_;
 
  private:
+  void DrawBoard();
   void DrawCursor();
   void PlayBackgroundMusic();
 

@@ -38,8 +38,9 @@ void MyApp::update() { }
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
-
+  DrawBoard();
   DrawCursor();
+
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -77,10 +78,17 @@ void MyApp::DrawCursor() {
   cinder::fs::path image_path = cinder::fs::path("cursor.png");
   cinder::gl::Texture2dRef tex = cinder::gl::Texture2d::
       create(loadImage(cinder::app::loadAsset(image_path)));
-  cinder::gl::draw(tex, Rectf (kTile * location.Row(),
-                               kTile * location.Col(),
-                               kTile * location.Row() + kTile,
-                               kTile * location.Col() + kTile));
+  cinder::gl::draw(tex, Rectf (kTile * location.Row() - 2,
+                               kTile * location.Col() - 2,
+                               kTile * location.Row() + kTile + 1,
+                               kTile * location.Col() + kTile + 1));
+}
+
+void MyApp::DrawBoard() {
+  cinder::gl::color(1,1,1);
+  cinder::gl::Texture2dRef tex = cinder::gl::Texture::
+      create(loadImage(loadAsset("board.jpg")));
+  cinder::gl::draw(tex);
 }
 
 void MyApp::PlayBackgroundMusic() {
