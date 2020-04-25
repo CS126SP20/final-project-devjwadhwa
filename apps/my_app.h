@@ -5,6 +5,9 @@
 
 #include <cinder/app/App.h>
 
+#include <cinder/audio/Voice.h>
+
+
 #include <mylibrary/direction.h>
 #include <mylibrary/engine.h>
 #include <mylibrary/cursor.h>
@@ -22,7 +25,10 @@ class MyApp : public cinder::app::App {
 
  private:
   mylibrary::Engine engine_;
+
+ private:
   void DrawCursor();
+  void PlayBackgroundMusic();
 
 };
 

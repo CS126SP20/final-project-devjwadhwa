@@ -13,6 +13,8 @@
 using cinder::Rectf;
 using mylibrary::Direction;
 
+cinder::audio::VoiceRef music_background;
+
 const int kWidth = 8;
 const int kHeight = 8;
 const int kTile = 100;
@@ -27,6 +29,8 @@ MyApp::MyApp()
 void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
+
+  PlayBackgroundMusic();
 }
 
 void MyApp::update() { }
@@ -77,6 +81,14 @@ void MyApp::DrawCursor() {
                                kTile * location.Col(),
                                kTile * location.Row() + kTile,
                                kTile * location.Col() + kTile));
+}
+
+void MyApp::PlayBackgroundMusic() {
+  cinder::audio::SourceFileRef sourceFile =
+      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
+  music_background = cinder::audio::Voice::create(sourceFile);
+
+  music_background->start();
 }
 
 }  // namespace myapp
