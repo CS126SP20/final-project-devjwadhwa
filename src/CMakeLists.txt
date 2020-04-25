@@ -19,9 +19,12 @@ ci_make_library(
         CINDER_PATH  ${CINDER_PATH}
         SOURCES      ${SOURCE_LIST}
         INCLUDES     "${FinalProject_SOURCE_DIR}/include"
-        LIBRARIES
+        LIBRARIES     gflags sqlite-modern-cpp sqlite3
         BLOCKS
 )
+
+# We need this directory, and users of our library will need it too
+target_include_directories(mylibrary PUBLIC ../include)
 
 # All users of this library will need at least C++14
 target_compile_features(mylibrary PUBLIC cxx_std_14)
