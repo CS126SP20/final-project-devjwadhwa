@@ -19,11 +19,11 @@ class Engine {
   // Changes the direction of the chess for the next time step.
   void SetDirection(Direction);
 
-  Player GetPlayer() const;
+  Cursor GetCursor() const;
 
 
  private:
-  Player cursor_;
+  Cursor cursor_;
   Direction direction_;
   Direction last_direction_;
   const int width_;

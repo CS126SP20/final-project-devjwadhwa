@@ -7,7 +7,7 @@
 
 #include <mylibrary/direction.h>
 #include <mylibrary/engine.h>
-#include <mylibrary/player.h>
+#include <mylibrary/cursor.h>
 
 
 namespace myapp {
@@ -22,6 +22,7 @@ class MyApp : public cinder::app::App {
 
  private:
   mylibrary::Engine engine_;
+  void DrawCursor();
 
 };
 

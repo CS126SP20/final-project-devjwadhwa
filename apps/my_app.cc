@@ -34,6 +34,8 @@ void MyApp::update() { }
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
+
+  DrawCursor();
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -63,6 +65,18 @@ void MyApp::keyDown(KeyEvent event) {
       break;
     }
   }
+}
+
+void MyApp::DrawCursor() {
+  cinder::gl::color(1, 1, 0);
+  mylibrary::Location location = engine_.GetCursor().GetLoc();
+  cinder::fs::path image_path = cinder::fs::path("cursor.png");
+  cinder::gl::Texture2dRef tex = cinder::gl::Texture2d::
+      create(loadImage(cinder::app::loadAsset(image_path)));
+  cinder::gl::draw(tex, Rectf (kTile * location.Row(),
+                               kTile * location.Col(),
+                               kTile * location.Row() + kTile,
+                               kTile * location.Col() + kTile));
 }
 
 }  // namespace myapp

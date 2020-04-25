@@ -23,14 +23,14 @@ Location FromDirection(const Direction direction) {
   throw std::out_of_range("switch statement not matched");
 }
 
-Player Engine::GetPlayer() const {
+Cursor Engine::GetCursor() const {
   return cursor_;
 }
 
 Engine::Engine(int width, int height)
   : width_(width),
     height_(height),
-    cursor_("White", 0, Location(0,0)){}
+    cursor_(Location(0,0)){}
 
 void Engine::Step() {
   Location d_loc = FromDirection(direction_);
