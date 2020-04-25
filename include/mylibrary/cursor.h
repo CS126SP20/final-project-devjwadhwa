@@ -8,10 +8,10 @@
 
 namespace mylibrary {
 
-class Player {
+class Cursor {
  public:
-  Player(const std::string& name, int score, Location location)
-      : name_(name),score_(score), loc_(location){}
+  Cursor(Location location)
+      : loc_(location){}
 
   void SetLoc(Location set_loc) {
     loc_ = set_loc;
@@ -20,9 +20,6 @@ class Player {
   Location GetLoc() const {
     return loc_;
   }
-
-  std::string name_;
-  int score_;
 
  private:
   Location loc_;
