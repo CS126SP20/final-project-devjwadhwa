@@ -15,7 +15,7 @@ using mylibrary::Direction;
 
 const int kWidth = 8;
 const int kHeight = 8;
-const int kTile = 50;
+const int kTile = 100;
 
 namespace myapp {
 
