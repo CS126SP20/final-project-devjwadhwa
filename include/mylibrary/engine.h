@@ -4,7 +4,7 @@
 #define FINALPROJECT_ENGINE_H_
 
 #include "direction.h"
-#include "player.h"
+#include "cursor.h"
 
 namespace mylibrary {
 
@@ -23,7 +23,7 @@ class Engine {
 
 
  private:
-  Player player_;
+  Player cursor_;
   Direction direction_;
   Direction last_direction_;
   const int width_;

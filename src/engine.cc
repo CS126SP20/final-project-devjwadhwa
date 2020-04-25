@@ -24,21 +24,21 @@ Location FromDirection(const Direction direction) {
 }
 
 Player Engine::GetPlayer() const {
-  return player_;
+  return cursor_;
 }
 
 Engine::Engine(int width, int height)
   : width_(width),
     height_(height),
-    player_("White", 0, Location(0,0)){}
+    cursor_("White", 0, Location(0,0)){}
 
 void Engine::Step() {
   Location d_loc = FromDirection(direction_);
   Location new_head_loc =
-      (player_.GetLoc() + d_loc) % Location(height_, width_);
+      (cursor_.GetLoc() + d_loc) % Location(height_, width_);
 
   Location leader = new_head_loc;
-  player_.SetLoc(leader);
+  cursor_.SetLoc(leader);
 
   last_direction_ = direction_;
 }
