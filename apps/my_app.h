@@ -5,6 +5,10 @@
 
 #include <cinder/app/App.h>
 
+#include <mylibrary/direction.h>
+#include <mylibrary/engine.h>
+#include <mylibrary/player.h>
+
 
 namespace myapp {
 
@@ -15,6 +19,10 @@ class MyApp : public cinder::app::App {
   void update() override;
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
+
+ private:
+  mylibrary::Engine engine_;
+
 };
 
 }  // namespace myapp
