@@ -4,7 +4,7 @@
 #define FINALPROJECT_ENGINE_H_
 
 #include "direction.h"
-#include "cursor.h"
+#include "prisoner.h"
 
 namespace mylibrary {
 
