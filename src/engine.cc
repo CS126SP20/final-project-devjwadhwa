@@ -30,7 +30,7 @@ Prisoner Engine::GetPrisoner() const {
 Engine::Engine(int width, int height)
   : width_(width),
     height_(height),
-    prisoner_(Location(0,0)){}
+    prisoner_(Location(0,1)){}
 
 void Engine::Step() {
   Location d_loc = FromDirection(direction_);
