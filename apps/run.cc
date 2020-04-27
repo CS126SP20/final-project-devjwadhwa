@@ -18,7 +18,7 @@ const int kHeight = 800;
 
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);
-  settings->setTitle("Chess - devjw2");
+  settings->setTitle("Prison Break - devjw2");
 }
 
 }  // namespace myapp

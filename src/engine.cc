@@ -23,22 +23,22 @@ Location FromDirection(const Direction direction) {
   throw std::out_of_range("switch statement not matched");
 }
 
-Cursor Engine::GetCursor() const {
-  return cursor_;
+Prisoner Engine::GetPrisoner() const {
+  return prisoner_;
 }
 
 Engine::Engine(int width, int height)
   : width_(width),
     height_(height),
-    cursor_(Location(0,0)){}
+    prisoner_(Location(0,0)){}
 
 void Engine::Step() {
   Location d_loc = FromDirection(direction_);
   Location new_head_loc =
-      (cursor_.GetLoc() + d_loc) % Location(height_, width_);
+      (prisoner_.GetLoc() + d_loc) % Location(height_, width_);
 
   Location leader = new_head_loc;
-  cursor_.SetLoc(leader);
+  prisoner_.SetLoc(leader);
 
   last_direction_ = direction_;
 }

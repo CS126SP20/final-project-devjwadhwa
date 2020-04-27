@@ -10,20 +10,20 @@ namespace mylibrary {
 
 class Engine {
  public:
-  // Creates a new chess game of the given size.
+  // Creates a new window of the given size.
   Engine(int width, int height);
 
-  // Executes a time step: moves the ches, etc.
+  // Executes a time step: moves the prisoner, etc.
   void Step();
 
-  // Changes the direction of the chess for the next time step.
+  // Changes the direction of the prisoner for the next time step.
   void SetDirection(Direction);
 
-  Cursor GetCursor() const;
+  Prisoner GetPrisoner() const;
 
 
  private:
-  Cursor cursor_;
+  Prisoner prisoner_;
   Direction direction_;
   Direction last_direction_;
   const int width_;

@@ -15,9 +15,9 @@ using mylibrary::Direction;
 
 cinder::audio::VoiceRef music_background;
 
-const int kWidth = 8;
-const int kHeight = 8;
-const int kTile = 100;
+const int kWidth = 16;
+const int kHeight = 16;
+const int kTile = 50;
 
 namespace myapp {
 
@@ -39,7 +39,7 @@ void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   DrawBoard();
-  DrawCursor();
+  DrawPrisoner();
 
 }
 
@@ -72,9 +72,9 @@ void MyApp::keyDown(KeyEvent event) {
   }
 }
 
-void MyApp::DrawCursor() {
+void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
-  mylibrary::Location location = engine_.GetCursor().GetLoc();
+  mylibrary::Location location = engine_.GetPrisoner().GetLoc();
   cinder::fs::path image_path = cinder::fs::path("cursor.png");
   cinder::gl::Texture2dRef tex = cinder::gl::Texture2d::
       create(loadImage(cinder::app::loadAsset(image_path)));
@@ -87,7 +87,7 @@ void MyApp::DrawCursor() {
 void MyApp::DrawBoard() {
   cinder::gl::color(1,1,1);
   cinder::gl::Texture2dRef tex = cinder::gl::Texture::
-      create(loadImage(loadAsset("board.jpg")));
+      create(loadImage(loadAsset("resized.gif")));
   cinder::gl::draw(tex);
 }
 

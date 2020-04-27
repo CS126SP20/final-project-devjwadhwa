@@ -24,7 +24,7 @@ class MyApp : public cinder::app::App {
 
  private:
   void DrawBoard();
-  void DrawCursor();
+  void DrawPrisoner();
   void PlayBackgroundMusic();
 
 };

@@ -8,9 +8,9 @@
 
 namespace mylibrary {
 
-class Cursor {
+class Prisoner {
  public:
-  Cursor(Location location)
+  Prisoner(Location location)
       : loc_(location){}
 
   void SetLoc(Location set_loc) {
