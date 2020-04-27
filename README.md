@@ -1,4 +1,4 @@
-# Chess - CS 126 Final Project
+# Prison Break - CS 126 Final Project
 
 This project was made as a part of CS 126 Final Project under the guidance of Prof. Michael J Woodley at the University
 of Illinois Urbana-Champaign.
