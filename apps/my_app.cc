@@ -10,8 +10,12 @@
 #include "cinder/ImageIo.h"
 #include <gflags/gflags.h>
 
+namespace myapp {
+
+using cinder::app::KeyEvent;
 using cinder::Rectf;
 using mylibrary::Direction;
+using mylibrary::Location;
 
 cinder::audio::VoiceRef music_background;
 
@@ -19,9 +23,12 @@ const int kWidth = 16;
 const int kHeight = 16;
 const int kTile = 50;
 
-namespace myapp {
+int step_up = 0;
+int step_down = 0;
+int step_left = 0;
+int step_right = 0;
 
-using cinder::app::KeyEvent;
+cinder::fs::path image_path;
 
 MyApp::MyApp()
     : engine_(kWidth, kHeight) {}
@@ -33,7 +40,11 @@ void MyApp::setup() {
   PlayBackgroundMusic();
 }
 
-void MyApp::update() { }
+void MyApp::update() {
+  Location location = engine_.GetPrisoner().GetLoc();
+  int row_now = location.Row();
+  int col_now = location.Col();
+}
 
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
@@ -87,7 +98,7 @@ void MyApp::DrawPrisoner() {
 void MyApp::DrawBoard() {
   cinder::gl::color(1,1,1);
   cinder::gl::Texture2dRef tex = cinder::gl::Texture::
-      create(loadImage(loadAsset("resized.gif")));
+      create(loadImage(loadAsset("board.jpg")));
   cinder::gl::draw(tex);
 }
 

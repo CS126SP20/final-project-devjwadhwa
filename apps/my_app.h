@@ -26,6 +26,11 @@ class MyApp : public cinder::app::App {
   void DrawBoard();
   void DrawPrisoner();
   void PlayBackgroundMusic();
+  bool is_up_valid;
+  bool is_down_valid;
+  bool is_left_valid;
+  bool is_right_valid;
+
 
 };
 
