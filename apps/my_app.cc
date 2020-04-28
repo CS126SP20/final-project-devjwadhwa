@@ -107,35 +107,27 @@ void MyApp::DrawPrisoner() {
 
   if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
     if (step_up % 2 == 1) {
-      std::cout << step_up <<"u1"<<std::endl;
       image_path = cinder::fs::path("u1.jpg");
     } else {
-      std::cout << step_up <<"u2"<< std::endl;
-      image_path = cinder::fs::path("u3.jpg");
+      image_path = cinder::fs::path("mand1.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
     if (step_down % 2 == 1) {
-      std::cout << step_down <<"u1"<<std::endl;
-      image_path = cinder::fs::path("d1.jpg");
+      image_path = cinder::fs::path("char2.png");
     } else {
-      std::cout << step_down <<"u2"<< std::endl;
-      image_path = cinder::fs::path("d3.jpg");
+      image_path = cinder::fs::path("mand2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
     if (step_left % 2 == 1) {
-      std::cout << step_left <<"l1"<<std::endl;
-      image_path = cinder::fs::path("l1.jpg");
+      image_path = cinder::fs::path("manss.png");
     } else {
-      std::cout << step_left <<"l2"<< std::endl;
       image_path = cinder::fs::path("l3.jpg");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kDown)) {
     if (step_right % 2 == 1) {
-      std::cout << step_right <<"r1"<<std::endl;
       image_path = cinder::fs::path("r1.jpg");
     } else {
-      std::cout << step_right <<"r2"<< std::endl;
-      image_path = cinder::fs::path("r3.jpg");
+      image_path = cinder::fs::path("char3.png");
     }
   }
 
