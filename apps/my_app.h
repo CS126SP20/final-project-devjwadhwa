@@ -22,14 +22,21 @@ class MyApp : public cinder::app::App {
  private:
   mylibrary::Engine engine_;
 
- private:
-  void DrawBoard();
-  void DrawPrisoner();
-  void PlayBackgroundMusic();
   bool is_up_valid;
   bool is_down_valid;
   bool is_left_valid;
   bool is_right_valid;
+  bool IsUp;
+  char maze[16][16];
+  int prisoner_dir;
+
+
+ private:
+  void DrawBoard();
+  void DrawPrisoner();
+  void PlayBackgroundMusic();
+  void ReadMap();
+
 
 
 };
