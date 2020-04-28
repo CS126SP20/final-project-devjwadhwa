@@ -154,6 +154,40 @@ void MyApp::PlayBackgroundMusic() {
 }
 void MyApp::ReadMap() {
   std::cout<<"Dev is studpid"<<std::endl;
+  std::ifstream fileInput;
+  fileInput.open(R"(C:\Users\devjw\CLionProjects\cinder_0.9.2_vc2015\projects\Break\assets\maze1.txt)");
 
+
+  if ( !fileInput.is_open() ) return; //if the file didn't open correctly, quit the function
+
+  while ( !fileInput.eof() ) //this is a viable option now
+  {
+    for (int i = 0 ; i < 16; i++)
+    {
+      for (int j = 0 ; j < 16; j++) //you had the incorrect const here originally.
+      {
+        fileInput >> maze[i][j];
+      }
+    }
+  }
+
+  fileInput.close();
+
+  for (int i = 0; i < 16; i++)
+  {
+    for (int j = 0; j < 16; j++)
+    {
+      std::cout << maze[i][j] << " "; //space between columns
+    }
+    std::cout << std::endl; //newlines for rows
+  }
+  std::cout<<maze[14][15]<<std::endl;
+  std::cout<<maze[13][15]<<std::endl;
+  std::cout<<maze[14][14]<<std::endl;
+  std::cout<<maze[13][14]<<std::endl;
+
+  std::cout<<maze[3][2]<<std::endl;
 }
+
+
 }  // namespace myapp
