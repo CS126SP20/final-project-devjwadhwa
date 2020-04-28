@@ -22,13 +22,12 @@ class MyApp : public cinder::app::App {
  private:
   mylibrary::Engine engine_;
 
-  bool is_up_valid;
-  bool is_down_valid;
-  bool is_left_valid;
-  bool is_right_valid;
-  bool IsUp;
   char maze[16][16];
   int prisoner_dir;
+  //bool is_up_valid;
+//bool is_down_valid;
+//bool is_left_valid;
+//bool is_right_valid;
 
 
  private:
@@ -36,10 +35,12 @@ class MyApp : public cinder::app::App {
   void DrawPrisoner();
   void PlayBackgroundMusic();
   void ReadMap();
+  void CheckMoveValidity(const cinder::app::KeyEvent& event);
 
 
 
-};
+
+  };
 
 }  // namespace myapp
 

@@ -18,6 +18,8 @@ Location FromDirection(const Direction direction) {
       return {0, -1};
     case Direction::kDown:
       return {0, +1};
+    case Direction::kNull:
+      return {0,0};
   }
 
   throw std::out_of_range("switch statement not matched");

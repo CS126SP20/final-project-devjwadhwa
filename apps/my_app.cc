@@ -28,6 +28,11 @@ int step_down = 0;
 int step_left = 0;
 int step_right = 0;
 
+bool is_up_valid = false;
+bool is_down_valid = false;
+bool is_left_valid = false;
+bool is_right_valid = false;
+
 cinder::fs::path image_path;
 
 MyApp::MyApp() : engine_(kWidth, kHeight) {}
@@ -36,7 +41,6 @@ void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
   ReadMap();
-  // IsUp = false;
   prisoner_dir = 0;
 
   PlayBackgroundMusic();
@@ -47,8 +51,10 @@ void MyApp::update() {
   int row_now = location.Row();
   int col_now = location.Col();
 
-  // IsUp = false;
-}
+  is_up_valid = maze[col_now - 1][row_now] != '1';
+  is_down_valid = maze[col_now + 1][row_now] != '1';
+  is_left_valid = maze[col_now][row_now - 1] != '1';
+  is_right_valid = maze[col_now][row_now + 1] != '1';}
 
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
@@ -63,7 +69,7 @@ void MyApp::keyDown(KeyEvent event) {
 
     case KeyEvent::KEY_DOWN:
     case KeyEvent::KEY_s: {
-      engine_.SetDirection(Direction::kDown);
+      CheckMoveValidity(event);
       prisoner_dir = static_cast<int>(Direction::kDown);
       step_down++;
       DrawPrisoner();
@@ -72,7 +78,7 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_UP:
     case KeyEvent::KEY_w: {
-      engine_.SetDirection(Direction::kUp);
+      CheckMoveValidity(event);
       prisoner_dir = static_cast<int>(Direction::kUp);
       step_up++;
       DrawPrisoner();
@@ -81,7 +87,7 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_LEFT:
     case KeyEvent::KEY_a: {
-      engine_.SetDirection(Direction::kLeft);
+      CheckMoveValidity(event);
       prisoner_dir = static_cast<int>(Direction::kLeft);
       step_left++;
       DrawPrisoner();
@@ -90,7 +96,7 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_RIGHT:
     case KeyEvent::KEY_d: {
-      engine_.SetDirection(Direction::kRight);
+      CheckMoveValidity(event);
       prisoner_dir = static_cast<int>(Direction::kRight);
       step_right++;
       DrawPrisoner();
@@ -105,36 +111,36 @@ void MyApp::DrawPrisoner() {
   const Location loc = engine_.GetPrisoner().GetLoc();
 
   if (prisoner_dir == static_cast<int>(Direction::kDown)) {
-    std::cout<<"Down"<<std::endl;
-    std::cout<<loc.Row()<<std::endl;
-    std::cout<<loc.Col()<<std::endl;
+//    std::cout<<"Down"<<std::endl;
+//    std::cout<<loc.Row()<<std::endl;
+//    std::cout<<loc.Col()<<std::endl;
     if (step_down % 2 == 1) {
       image_path = cinder::fs::path("down_1.png");
     } else {
       image_path = cinder::fs::path("down_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
-    std::cout<<"Up"<<std::endl;
-    std::cout<<loc.Row()<<std::endl;
-    std::cout<<loc.Col()<<std::endl;
+//    std::cout<<"Up"<<std::endl;
+//    std::cout<<loc.Row()<<std::endl;
+//    std::cout<<loc.Col()<<std::endl;
     if (step_up % 2 == 1) {
       image_path = cinder::fs::path("up_1.png");
     } else {
       image_path = cinder::fs::path("up_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
-    std::cout<<"Left"<<std::endl;
-    std::cout<<loc.Row()<<std::endl;
-    std::cout<<loc.Col()<<std::endl;
+//    std::cout<<"Left"<<std::endl;
+//    std::cout<<loc.Row()<<std::endl;
+//    std::cout<<loc.Col()<<std::endl;
     if (step_left % 2 == 1) {
       image_path = cinder::fs::path("left_1.png");
     } else {
       image_path = cinder::fs::path("left_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
-    std::cout<<"Right"<<std::endl;
-    std::cout<<loc.Row()<<std::endl;
-    std::cout<<loc.Col()<<std::endl;
+//    std::cout<<"Right"<<std::endl;
+//    std::cout<<loc.Row()<<std::endl;
+//    std::cout<<loc.Col()<<std::endl;
     if (step_right % 2 == 1) {
       image_path = cinder::fs::path("right_1.png");
     } else {
@@ -165,7 +171,6 @@ void MyApp::PlayBackgroundMusic() {
   music_background->start();
 }
 void MyApp::ReadMap() {
-  std::cout<<"Dev is studpid"<<std::endl;
   std::ifstream fileInput;
   fileInput.open(R"(C:\Users\devjw\CLionProjects\cinder_0.9.2_vc2015\projects\Break\assets\maze1.txt)");
 
@@ -193,13 +198,46 @@ void MyApp::ReadMap() {
     }
     std::cout << std::endl; //newlines for rows
   }
-  std::cout<<maze[14][15]<<std::endl;
-  std::cout<<maze[13][15]<<std::endl;
-  std::cout<<maze[14][14]<<std::endl;
-  std::cout<<maze[13][14]<<std::endl;
-
-  std::cout<<maze[3][2]<<std::endl;
 }
+
+void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
+  if (is_up_valid &&
+      event.getCode() == KeyEvent::KEY_UP ||
+      event.getCode() == KeyEvent::KEY_w) {
+    engine_.SetDirection(Direction::kUp);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_down_valid &&
+      event.getCode() == KeyEvent::KEY_DOWN ||
+      event.getCode() == KeyEvent::KEY_s) {
+    engine_.SetDirection(Direction::kDown);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_left_valid &&
+      event.getCode() == KeyEvent::KEY_LEFT ||
+      event.getCode() == KeyEvent::KEY_a) {
+    engine_.SetDirection(Direction::kLeft);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_right_valid &&
+      event.getCode() == KeyEvent::KEY_RIGHT ||
+      event.getCode() == KeyEvent::KEY_d) {
+    engine_.SetDirection(Direction::kRight);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+}
+
 
 
 }  // namespace myapp

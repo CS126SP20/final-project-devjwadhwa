@@ -6,7 +6,7 @@
 namespace mylibrary {
 
 // Represents the possible directions of the marker.
-enum class Direction { kUp, kDown, kLeft, kRight };
+enum class Direction { kUp, kDown, kLeft, kRight, kNull };
 
 }  // namespace mylibrary
 
