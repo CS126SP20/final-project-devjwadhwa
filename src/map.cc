@@ -4,8 +4,5 @@
 
 namespace mylibrary {
 
-Location::Location(int row, int col) : row_(row), col_(col) {}
-
-
 }  // namespace mylibrary
 

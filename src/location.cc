@@ -10,43 +10,8 @@ bool Location::operator==(const Location& rhs) const {
   return row_ == rhs.row_ && col_ == rhs.col_;
 }
 
-bool Location::operator()(const Location& lhs, const Location& rhs) const {
-  return lhs <= rhs;
-}
-
-bool Location::operator!=(const Location& rhs) const {
-  return !(*this == rhs);
-}
-
-bool Location::operator<(const Location& rhs) const {
-  return row_ < rhs.row_ || (rhs.row_ >= row_ && col_ < rhs.col_);
-}
-
-bool Location::operator<=(const Location& rhs) const {
-  return !(rhs < *this);
-}
-
-bool Location::operator>(const Location& rhs) const {
-  return rhs < *this;
-}
-
-bool Location::operator>=(const Location& rhs) const {
-  return !(*this < rhs);
-}
-
 Location Location::operator+(const Location& rhs) const {
   return { row_ + rhs.row_, col_ + rhs.col_ };
-}
-
-Location Location::operator-(const Location& rhs) const {
-  return *this + (-rhs);
-}
-
-Location Location::operator-() const { return {-row_, -col_}; }
-
-Location& Location::operator+=(const Location& rhs) {
-  *this = *this + rhs;
-  return *this;
 }
 
 int mod(int a, int b) {
@@ -61,10 +26,5 @@ Location Location::operator%(const Location& rhs) const {
 int Location::Row() const { return row_; }
 
 int Location::Col() const { return col_; }
-
-std::ostream& operator<<(std::ostream& os, const Location& location) {
-  os << "{row=" << location.Row() << ", col=" << location.Col() << "}";
-  return os;
-}
 
 }  // namespace mylibrary
