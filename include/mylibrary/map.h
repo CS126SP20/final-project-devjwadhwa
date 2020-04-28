@@ -5,7 +5,13 @@
 
 namespace mylibrary {
 
-class map {};
+class Map {
+ public:
+  Map(char game_board[16][16]);
+
+  void Map::ReadMap();
+
+};
 
 }  // namespace mylibrary
 

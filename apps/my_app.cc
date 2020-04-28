@@ -36,7 +36,6 @@ void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
   ReadMap();
-  std::cout << "Dev" << std::endl;
   // IsUp = false;
   prisoner_dir = 0;
 
@@ -107,27 +106,27 @@ void MyApp::DrawPrisoner() {
 
   if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
     if (step_up % 2 == 1) {
-      image_path = cinder::fs::path("u1.jpg");
+      image_path = cinder::fs::path("down_1.png");
     } else {
-      image_path = cinder::fs::path("mand1.png");
+      image_path = cinder::fs::path("down_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
     if (step_down % 2 == 1) {
-      image_path = cinder::fs::path("char2.png");
+      image_path = cinder::fs::path("up_1.png");
     } else {
-      image_path = cinder::fs::path("mand2.png");
+      image_path = cinder::fs::path("up_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
     if (step_left % 2 == 1) {
-      image_path = cinder::fs::path("manss.png");
+      image_path = cinder::fs::path("left_1.png");
     } else {
-      image_path = cinder::fs::path("l3.jpg");
+      image_path = cinder::fs::path("left_2.png");
     }
   } else if (prisoner_dir == static_cast<int>(Direction::kDown)) {
     if (step_right % 2 == 1) {
-      image_path = cinder::fs::path("r1.jpg");
+      image_path = cinder::fs::path("right_1.png");
     } else {
-      image_path = cinder::fs::path("char3.png");
+      image_path = cinder::fs::path("right_2.png");
     }
   }
 
@@ -154,7 +153,7 @@ void MyApp::PlayBackgroundMusic() {
   music_background->start();
 }
 void MyApp::ReadMap() {
-  std::cout<<"Dev is stu;pid"<<std::endl;
+  std::cout<<"Dev is studpid"<<std::endl;
 
 }
 }  // namespace myapp
