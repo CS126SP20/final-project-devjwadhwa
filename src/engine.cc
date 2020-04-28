@@ -10,13 +10,13 @@ namespace mylibrary {
 // Converts a direction into a delta location.
 Location FromDirection(const Direction direction) {
   switch (direction) {
-    case Direction::kUp:
-      return {-1, 0};
-    case Direction::kDown:
-      return {+1, 0};
     case Direction::kLeft:
-      return {0, -1};
+      return {-1, 0};
     case Direction::kRight:
+      return {+1, 0};
+    case Direction::kUp:
+      return {0, -1};
+    case Direction::kDown:
       return {0, +1};
   }
 

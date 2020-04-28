@@ -60,29 +60,29 @@ void MyApp::draw() {
 
 void MyApp::keyDown(KeyEvent event) {
   switch (event.getCode()) {
-    case KeyEvent::KEY_UP:
-    case KeyEvent::KEY_w: {
-      //IsUp = true;
-      engine_.SetDirection(Direction::kLeft);
-      prisoner_dir = static_cast<int>(Direction::kLeft);
-      step_up++;
+
+    case KeyEvent::KEY_DOWN:
+    case KeyEvent::KEY_s: {
+      engine_.SetDirection(Direction::kDown);
+      prisoner_dir = static_cast<int>(Direction::kDown);
+      step_down++;
       DrawPrisoner();
       engine_.Step();
       break;
     }
-    case KeyEvent::KEY_DOWN:
-    case KeyEvent::KEY_s: {
-      engine_.SetDirection(Direction::kRight);
-      prisoner_dir = static_cast<int>(Direction::kRight);
-      step_down++;
+    case KeyEvent::KEY_UP:
+    case KeyEvent::KEY_w: {
+      engine_.SetDirection(Direction::kUp);
+      prisoner_dir = static_cast<int>(Direction::kUp);
+      step_up++;
       DrawPrisoner();
       engine_.Step();
       break;
     }
     case KeyEvent::KEY_LEFT:
     case KeyEvent::KEY_a: {
-      engine_.SetDirection(Direction::kUp);
-      prisoner_dir = static_cast<int>(Direction::kUp);
+      engine_.SetDirection(Direction::kLeft);
+      prisoner_dir = static_cast<int>(Direction::kLeft);
       step_left++;
       DrawPrisoner();
       engine_.Step();
@@ -90,8 +90,8 @@ void MyApp::keyDown(KeyEvent event) {
     }
     case KeyEvent::KEY_RIGHT:
     case KeyEvent::KEY_d: {
-      engine_.SetDirection(Direction::kDown);
-      prisoner_dir = static_cast<int>(Direction::kDown);
+      engine_.SetDirection(Direction::kRight);
+      prisoner_dir = static_cast<int>(Direction::kRight);
       step_right++;
       DrawPrisoner();
       engine_.Step();
@@ -104,25 +104,37 @@ void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
   const Location loc = engine_.GetPrisoner().GetLoc();
 
-  if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
-    if (step_up % 2 == 1) {
+  if (prisoner_dir == static_cast<int>(Direction::kDown)) {
+    std::cout<<"Down"<<std::endl;
+    std::cout<<loc.Row()<<std::endl;
+    std::cout<<loc.Col()<<std::endl;
+    if (step_down % 2 == 1) {
       image_path = cinder::fs::path("down_1.png");
     } else {
       image_path = cinder::fs::path("down_2.png");
     }
-  } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
-    if (step_down % 2 == 1) {
+  } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
+    std::cout<<"Up"<<std::endl;
+    std::cout<<loc.Row()<<std::endl;
+    std::cout<<loc.Col()<<std::endl;
+    if (step_up % 2 == 1) {
       image_path = cinder::fs::path("up_1.png");
     } else {
       image_path = cinder::fs::path("up_2.png");
     }
-  } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
+  } else if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
+    std::cout<<"Left"<<std::endl;
+    std::cout<<loc.Row()<<std::endl;
+    std::cout<<loc.Col()<<std::endl;
     if (step_left % 2 == 1) {
       image_path = cinder::fs::path("left_1.png");
     } else {
       image_path = cinder::fs::path("left_2.png");
     }
-  } else if (prisoner_dir == static_cast<int>(Direction::kDown)) {
+  } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
+    std::cout<<"Right"<<std::endl;
+    std::cout<<loc.Row()<<std::endl;
+    std::cout<<loc.Col()<<std::endl;
     if (step_right % 2 == 1) {
       image_path = cinder::fs::path("right_1.png");
     } else {
