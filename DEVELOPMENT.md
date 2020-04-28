@@ -23,9 +23,9 @@
 ---
 #### 04/28
 - [x] Implemented code to read txt files
+- [x] Implemented walls
 - [ ] Added tests for operators
 - [ ] Added tests for other functions
-- [ ] Implemented code for walls and the door of the first maze
 - [ ] Made the second maze image and txt file
 - [ ] Refactored Code
 ---
