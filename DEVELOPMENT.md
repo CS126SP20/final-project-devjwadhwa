@@ -22,6 +22,7 @@
 - [x] Implemented code for the character to appear to be moving 
 ---
 #### 04/28
+- [x] Implemented code to read txt files
 - [ ] Added tests for operators
 - [ ] Added tests for other functions
 - [ ] Implemented code for walls and the door of the first maze
