@@ -19,8 +19,8 @@ using mylibrary::Location;
 
 cinder::audio::VoiceRef music_background;
 
-const int kWidth = 16;
-const int kHeight = 16;
+const int kWidth = 38;
+const int kHeight = 19;
 const int kTile = 50;
 
 int step_up = 0;
@@ -42,7 +42,6 @@ void MyApp::setup() {
   cinder::gl::disableDepthWrite();
   ReadMap();
   prisoner_dir = 0;
-
   PlayBackgroundMusic();
 }
 
@@ -54,12 +53,14 @@ void MyApp::update() {
   is_up_valid = maze[col_now - 1][row_now] != '1';
   is_down_valid = maze[col_now + 1][row_now] != '1';
   is_left_valid = maze[col_now][row_now - 1] != '1';
-  is_right_valid = maze[col_now][row_now + 1] != '1';}
+  is_right_valid = maze[col_now][row_now + 1] != '1';
+}
 
 void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::color(1,1,1);
+
   DrawBoard();
   DrawPrisoner();
 }
@@ -76,6 +77,7 @@ void MyApp::keyDown(KeyEvent event) {
       engine_.Step();
       break;
     }
+
     case KeyEvent::KEY_UP:
     case KeyEvent::KEY_w: {
       CheckMoveValidity(event);
@@ -85,6 +87,7 @@ void MyApp::keyDown(KeyEvent event) {
       engine_.Step();
       break;
     }
+
     case KeyEvent::KEY_LEFT:
     case KeyEvent::KEY_a: {
       CheckMoveValidity(event);
@@ -94,6 +97,7 @@ void MyApp::keyDown(KeyEvent event) {
       engine_.Step();
       break;
     }
+
     case KeyEvent::KEY_RIGHT:
     case KeyEvent::KEY_d: {
       CheckMoveValidity(event);
@@ -111,36 +115,27 @@ void MyApp::DrawPrisoner() {
   const Location loc = engine_.GetPrisoner().GetLoc();
 
   if (prisoner_dir == static_cast<int>(Direction::kDown)) {
-//    std::cout<<"Down"<<std::endl;
-//    std::cout<<loc.Row()<<std::endl;
-//    std::cout<<loc.Col()<<std::endl;
     if (step_down % 2 == 1) {
       image_path = cinder::fs::path("down_1.png");
     } else {
       image_path = cinder::fs::path("down_2.png");
     }
+
   } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
-//    std::cout<<"Up"<<std::endl;
-//    std::cout<<loc.Row()<<std::endl;
-//    std::cout<<loc.Col()<<std::endl;
     if (step_up % 2 == 1) {
       image_path = cinder::fs::path("up_1.png");
     } else {
       image_path = cinder::fs::path("up_2.png");
     }
+
   } else if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
-//    std::cout<<"Left"<<std::endl;
-//    std::cout<<loc.Row()<<std::endl;
-//    std::cout<<loc.Col()<<std::endl;
     if (step_left % 2 == 1) {
       image_path = cinder::fs::path("left_1.png");
     } else {
       image_path = cinder::fs::path("left_2.png");
     }
+
   } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
-//    std::cout<<"Right"<<std::endl;
-//    std::cout<<loc.Row()<<std::endl;
-//    std::cout<<loc.Col()<<std::endl;
     if (step_right % 2 == 1) {
       image_path = cinder::fs::path("right_1.png");
     } else {
@@ -149,17 +144,21 @@ void MyApp::DrawPrisoner() {
   }
 
   cinder::gl::Texture2dRef tex =
-      cinder::gl::Texture2d::create(loadImage(loadAsset(image_path)));
+      cinder::gl::Texture2d::create(loadImage
+                                    (loadAsset(image_path)));
   cinder::gl::draw(tex,
-                   Rectf(kTile * loc.Row(), kTile * loc.Col(),
-                         kTile * loc.Row() + kTile, kTile * loc.Col() + kTile));
+                   Rectf(kTile * loc.Row(),
+                         kTile * loc.Col(),
+                         kTile * loc.Row() + kTile,
+                         kTile * loc.Col() + kTile));
   image_path.clear();
 }
 
 void MyApp::DrawBoard() {
   cinder::gl::color(1, 1, 1);
   cinder::gl::Texture2dRef tex =
-      cinder::gl::Texture::create(loadImage(loadAsset("maze1.png")));
+      cinder::gl::Texture::create(loadImage
+                                  (loadAsset("maze_final.jpg")));
   cinder::gl::draw(tex);
 }
 
@@ -172,31 +171,23 @@ void MyApp::PlayBackgroundMusic() {
 }
 void MyApp::ReadMap() {
   std::ifstream fileInput;
-  fileInput.open(R"(C:\Users\devjw\CLionProjects\cinder_0.9.2_vc2015\projects\Break\assets\maze1.txt)");
-
-
-  if ( !fileInput.is_open() ) return; //if the file didn't open correctly, quit the function
-
-  while ( !fileInput.eof() ) //this is a viable option now
-  {
-    for (int i = 0 ; i < 16; i++)
-    {
-      for (int j = 0 ; j < 16; j++) //you had the incorrect const here originally.
-      {
+  fileInput.open("assets/maze.txt");
+  if (!fileInput.is_open()) {
+    return;
+  }
+  while ( !fileInput.eof() ) {
+    for (int i = 0 ; i < 16; i++) {
+      for (int j = 0 ; j < 16; j++) {
         fileInput >> maze[i][j];
       }
     }
   }
-
   fileInput.close();
-
-  for (int i = 0; i < 16; i++)
-  {
-    for (int j = 0; j < 16; j++)
-    {
-      std::cout << maze[i][j] << " "; //space between columns
+  for (int i = 0; i < 16; i++) {
+    for (int j = 0; j < 16; j++) {
+      std::cout << maze[i][j] << " ";
     }
-    std::cout << std::endl; //newlines for rows
+    std::cout << std::endl;
   }
 }
 

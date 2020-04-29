@@ -24,6 +24,7 @@
 #### 04/28
 - [x] Implemented code to read txt files
 - [x] Implemented walls
+- [x] Increased Maze Size to fit the Window
 - [ ] Added tests for operators
 - [ ] Added tests for other functions
 - [ ] Made the second maze image and txt file
