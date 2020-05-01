@@ -1,0 +1,2 @@
+maze1.png
+maze2.png

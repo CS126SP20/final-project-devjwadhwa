@@ -49,6 +49,11 @@ void Engine::SetDirection(const mylibrary::Direction direction) {
   direction_ = direction;
 }
 
+/*void Engine::ResetPrisoner() {
+  Location location
+}
+ */
+
 
 
 
