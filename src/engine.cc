@@ -32,7 +32,11 @@ Prisoner Engine::GetPrisoner() const {
 Engine::Engine(int width, int height)
   : width_(width),
     height_(height),
-    prisoner_(Location(0,1)){}
+      direction_(Direction::kRight),
+      last_direction_(Direction::kUp),
+    prisoner_(Location(0,1)){
+  //Reset{(0,0)};
+}
 
 void Engine::Step() {
   Location d_loc = FromDirection(direction_);
@@ -47,6 +51,14 @@ void Engine::Step() {
 
 void Engine::SetDirection(const mylibrary::Direction direction) {
   direction_ = direction;
+}
+
+Direction Engine::GetDirection() {
+  return direction_;
+}
+
+void Engine::Reset(Location location) {
+  prisoner_.SetLoc(location);
 }
 
 /*void Engine::ResetPrisoner() {

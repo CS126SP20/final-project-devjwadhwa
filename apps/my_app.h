@@ -4,10 +4,12 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
-#include <cinder/audio/Voice.h>
+//#include <cinder/audio/Voice.h>
 #include <mylibrary/direction.h>
 #include <mylibrary/engine.h>
 #include <mylibrary/prisoner.h>
+#include <mylibrary/map.h>
+
 
 namespace myapp {
 
@@ -19,10 +21,14 @@ class MyApp : public cinder::app::App {
   void draw() override;
   void keyDown(cinder::app::KeyEvent) override;
 
+
  private:
   mylibrary::Engine engine_;
+  mylibrary::Map mapper;
 
-  char maze[16][16];
+
+  //char maze[16][16];
+  //char maps[20][20][20];
   int prisoner_dir;
   //bool is_up_valid;
 //bool is_down_valid;
@@ -33,14 +39,13 @@ class MyApp : public cinder::app::App {
  private:
   void DrawBoard();
   void DrawPrisoner();
-  void PlayBackgroundMusic();
-  void ReadMap();
+  //void PlayBackgroundMusic();
+  //char **ReadMap();
+  //char ***SetMap(char maze_[16][16]);
   void CheckMoveValidity(const cinder::app::KeyEvent& event);
 
-
-
-
-  };
+  void ResetLoc(mylibrary::Location location);
+};
 
 }  // namespace myapp
 

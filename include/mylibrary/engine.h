@@ -20,8 +20,9 @@ class Engine {
   void SetDirection(Direction);
 
   Prisoner GetPrisoner() const;
+  Direction GetDirection();
 
-
+  void Reset(Location location);
  private:
   Prisoner prisoner_;
   Direction direction_;

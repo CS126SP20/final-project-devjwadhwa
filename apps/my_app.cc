@@ -7,7 +7,6 @@
 #include <cinder/gl/gl.h>
 #include <cinder/gl/Texture.h>
 #include <cinder/gl/draw.h>
-#include "cinder/ImageIo.h"
 #include <gflags/gflags.h>
 
 namespace myapp {
@@ -17,10 +16,12 @@ using cinder::Rectf;
 using mylibrary::Direction;
 using mylibrary::Location;
 
-cinder::audio::VoiceRef music_background;
+//cinder::audio::VoiceRef music_background;
 
-const int kWidth = 38;
-const int kHeight = 19;
+int map_num = 0;
+
+const int kWidth = 16;
+const int kHeight = 16;
 const int kTile = 50;
 
 int step_up = 0;
@@ -28,32 +29,46 @@ int step_down = 0;
 int step_left = 0;
 int step_right = 0;
 
-bool is_up_valid = false;
-bool is_down_valid = false;
-bool is_left_valid = false;
-bool is_right_valid = false;
+bool is_up_valid = true;
+bool is_down_valid = true;
+bool is_left_valid = true;
+bool is_right_valid = true;
 
 cinder::fs::path image_path;
+cinder::fs::path curr_map_;
+
 
 MyApp::MyApp() : engine_(kWidth, kHeight) {}
 
 void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
-  ReadMap();
+  curr_map_ = "maze1.png";
+  mapper.ReadImageLabels();
+  mapper.ReadGameScreens();
+  //ReadMap();
+  //SetMap(maze);
   prisoner_dir = 0;
-  PlayBackgroundMusic();
+  //PlayBackgroundMusic();
 }
 
 void MyApp::update() {
   Location location = engine_.GetPrisoner().GetLoc();
-  int row_now = location.Row();
-  int col_now = location.Col();
+  int curr_col = location.Row();
+  int curr_row = location.Col();
+  Location new_player_loc = mapper.GetPlayerNewLoc(mapper.GetScreen()[map_num],
+                                                   engine_);
+  curr_map_ = mapper.GetMapLabels();
+  map_num = mapper.GetNewScreenNum();
 
-  is_up_valid = maze[col_now - 1][row_now] != '1';
-  is_down_valid = maze[col_now + 1][row_now] != '1';
-  is_left_valid = maze[col_now][row_now - 1] != '1';
-  is_right_valid = maze[col_now][row_now + 1] != '1';
+  ResetLoc(new_player_loc);
+
+
+  is_up_valid = mapper.GetScreen()[map_num].coordinates_[curr_row - 1][curr_col] != '1';
+  is_down_valid = mapper.GetScreen()[map_num].coordinates_[curr_row + 1][curr_col] != '1';
+  is_left_valid = mapper.GetScreen()[map_num].coordinates_[curr_row][curr_col - 1] != '1';
+  is_right_valid = mapper.GetScreen()[map_num].coordinates_[curr_row][curr_col + 1] != '1';
+
 }
 
 void MyApp::draw() {
@@ -110,6 +125,45 @@ void MyApp::keyDown(KeyEvent event) {
   }
 }
 
+
+void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
+  if (is_up_valid &&
+      event.getCode() == KeyEvent::KEY_UP ||
+      event.getCode() == KeyEvent::KEY_w) {
+    engine_.SetDirection(Direction::kUp);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_down_valid &&
+      event.getCode() == KeyEvent::KEY_DOWN ||
+      event.getCode() == KeyEvent::KEY_s) {
+    engine_.SetDirection(Direction::kDown);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_left_valid &&
+      event.getCode() == KeyEvent::KEY_LEFT ||
+      event.getCode() == KeyEvent::KEY_a) {
+    engine_.SetDirection(Direction::kLeft);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_right_valid &&
+      event.getCode() == KeyEvent::KEY_RIGHT ||
+      event.getCode() == KeyEvent::KEY_d) {
+    engine_.SetDirection(Direction::kRight);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+}
+
 void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
   const Location loc = engine_.GetPrisoner().GetLoc();
@@ -151,84 +205,27 @@ void MyApp::DrawPrisoner() {
                          kTile * loc.Col(),
                          kTile * loc.Row() + kTile,
                          kTile * loc.Col() + kTile));
-  image_path.clear();
 }
 
 void MyApp::DrawBoard() {
-  cinder::gl::color(1, 1, 1);
   cinder::gl::Texture2dRef tex =
-      cinder::gl::Texture::create(loadImage
-                                  (loadAsset("maze_final.jpg")));
-  cinder::gl::draw(tex);
+      cinder::gl::Texture2d::create(loadImage
+                                  (loadAsset(curr_map_)));
+  cinder::gl::draw(tex, getWindowBounds());
 }
 
-void MyApp::PlayBackgroundMusic() {
-  cinder::audio::SourceFileRef sourceFile =
-      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
-  music_background = cinder::audio::Voice::create(sourceFile);
+//void MyApp::PlayBackgroundMusic() {
+//  cinder::audio::SourceFileRef sourceFile =
+//      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
+//  music_background = cinder::audio::Voice::create(sourceFile);
+//
+//  music_background->start();
+//}
 
-  music_background->start();
-}
-void MyApp::ReadMap() {
-  std::ifstream fileInput;
-  fileInput.open("assets/maze.txt");
-  if (!fileInput.is_open()) {
-    return;
-  }
-  while ( !fileInput.eof() ) {
-    for (int i = 0 ; i < 16; i++) {
-      for (int j = 0 ; j < 16; j++) {
-        fileInput >> maze[i][j];
-      }
-    }
-  }
-  fileInput.close();
-  for (int i = 0; i < 16; i++) {
-    for (int j = 0; j < 16; j++) {
-      std::cout << maze[i][j] << " ";
-    }
-    std::cout << std::endl;
+void MyApp::ResetLoc(Location location) {
+  if (mapper.IsScreenChange()) {
+    engine_.Reset(location);
   }
 }
-
-void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
-  if (is_up_valid &&
-      event.getCode() == KeyEvent::KEY_UP ||
-      event.getCode() == KeyEvent::KEY_w) {
-    engine_.SetDirection(Direction::kUp);
-    return;
-  } else {
-    engine_.SetDirection(Direction::kNull);
-  }
-
-  if (is_down_valid &&
-      event.getCode() == KeyEvent::KEY_DOWN ||
-      event.getCode() == KeyEvent::KEY_s) {
-    engine_.SetDirection(Direction::kDown);
-    return;
-  } else {
-    engine_.SetDirection(Direction::kNull);
-  }
-
-  if (is_left_valid &&
-      event.getCode() == KeyEvent::KEY_LEFT ||
-      event.getCode() == KeyEvent::KEY_a) {
-    engine_.SetDirection(Direction::kLeft);
-    return;
-  } else {
-    engine_.SetDirection(Direction::kNull);
-  }
-
-  if (is_right_valid &&
-      event.getCode() == KeyEvent::KEY_RIGHT ||
-      event.getCode() == KeyEvent::KEY_d) {
-    engine_.SetDirection(Direction::kRight);
-    return;
-  } else {
-    engine_.SetDirection(Direction::kNull);
-  }
-}
-
-
 
 }  // namespace myapp
