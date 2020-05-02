@@ -14,7 +14,7 @@ using mylibrary::Engine;
 
 class Map {
  public:
-  char coordinates_[16][16]{};
+  char cartesian[16][16]{};
 
  public:
   Map();
@@ -22,6 +22,9 @@ class Map {
   void ReadBackgroundImages();
   void ReadMaps();
   void SetupMap(std::string map_line);
+  std::vector<Map> GetMaps();
+  int GetCurrMapKey(const Map& current_map);
+
 
  private:
   const int kBoardDimension = 16;
