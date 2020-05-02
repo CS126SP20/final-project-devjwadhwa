@@ -61,12 +61,4 @@ void Engine::Reset(Location location) {
   prisoner_.SetLoc(location);
 }
 
-/*void Engine::ResetPrisoner() {
-  Location location
-}
- */
-
-
-
-
 }  // namespace mylibrary

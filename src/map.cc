@@ -83,11 +83,12 @@ void Map::SetupMap(std::string map_line) {
   map.push_back(map_char);
 }
 
-std::string Map::GetMapKeys() {
+std::string Map::GetBackgroundKeys() {
   std::string key;
   for (int i = 0; i < background_images.size(); i++) {
     if (i == screen_num_) {
       std::cout<<background_images[i]<<std::endl;
+
       //return map_labels_[i];
       key = background_images[i];
     }
@@ -105,7 +106,7 @@ int Map::GetCurrMapKey(const Map& current_map) {
     for (int j = 0; j < kBoardDimension; j++) {
       for (int k = 0; k < kBoardDimension; k++) {
 
-        // Checking Similarity bock wise
+        // Checking similarity block wise
         if (maze_maps[i].cartesian[j][k] == current_map.cartesian[j][k]) {
           count++;
 
@@ -114,7 +115,7 @@ int Map::GetCurrMapKey(const Map& current_map) {
           goto exitloop;
         }
 
-        // If the current map is EXACTLY similar to the ith map
+        // Checks if the current map is EXACTLY similar to the ith map
         if (count == kBoardDimension*kBoardDimension) {
           return i;
         }
@@ -127,19 +128,19 @@ int Map::GetCurrMapKey(const Map& current_map) {
 
 int Map::GetParallelMapKey(int key, char door) {
   for (int i = 0; i < maze_maps.size(); i++) {
-    if (i != key) {
+   // if (i != key) {
       for (int j = 0; j < kBoardDimension; j++) {
         for (int k = 0; k < kBoardDimension; k++) {
 
           // Gets the map with the same door point as the current one
-          if (maze_maps[i].cartesian[j][k] == door) {
+          if (maze_maps[i].cartesian[j][k] == door && i != key) {
             return i;
           }
         }
       }
     }
-  }
-  return 0;
+
+  //return 0;
 }
 
 Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
@@ -147,10 +148,10 @@ Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
   int curr_row = loc.Col();
   int curr_col = loc.Row();
 
-  for (int i = 0; i < exits.size(); i++) {
-    if (current_map.cartesian[curr_row][curr_col] == exits.at(i)) {
+  for (int j = 0; j < exits.size(); j++) {
+    if (current_map.cartesian[curr_row][curr_col] == exits.at(j)) {
       screen_num_ = GetParallelMapKey(GetCurrMapKey(current_map),
-                                           exits.at(i));
+                                           exits.at(j));
       is_screen_change_ = true;
 
       if (engine.GetDirection() == Direction::kUp) {
@@ -158,7 +159,7 @@ Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
       } else if (engine.GetDirection() == Direction::kDown) {
         return {curr_col, 2};
       } else if (engine.GetDirection() == Direction::kLeft) {
-        return {kBoardDimension - 2, curr_row};
+        return {kBoardDimension - 3, curr_row};
       } else if (engine.GetDirection() == Direction::kRight){
         return {2, curr_row};
       }

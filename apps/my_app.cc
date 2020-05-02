@@ -35,7 +35,7 @@ bool is_left_valid = true;
 bool is_right_valid = true;
 
 cinder::fs::path image_path;
-cinder::fs::path curr_map_;
+cinder::fs::path current_map;
 
 
 MyApp::MyApp() : engine_(kWidth, kHeight) {}
@@ -43,7 +43,7 @@ MyApp::MyApp() : engine_(kWidth, kHeight) {}
 void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
-  curr_map_ = "maze1.png";
+  current_map = "maze1.png";
   mapper.ReadBackgroundImages();
   mapper.ReadMaps();
   prisoner_dir = 0;
@@ -54,12 +54,12 @@ void MyApp::update() {
   Location location = engine_.GetPrisoner().GetLoc();
   int curr_col = location.Row();
   int curr_row = location.Col();
-  Location new_player_loc = mapper.GetPlayerParallelLoc(mapper.GetMaps()[map_key],
-                                                   engine_);
-  curr_map_ = mapper.GetMapKeys();
+  Location player_parallel_loc =
+      mapper.GetPlayerParallelLoc(mapper.GetMaps()[map_key],engine_);
+  current_map = mapper.GetBackgroundKeys();
   map_key = mapper.GetParallelMapNum();
 
-  ResetLoc(new_player_loc);
+  ResetLoc(player_parallel_loc);
 
 
   is_up_valid = mapper.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
@@ -208,7 +208,7 @@ void MyApp::DrawPrisoner() {
 void MyApp::DrawBoard() {
   cinder::gl::Texture2dRef tex =
       cinder::gl::Texture2d::create(loadImage
-                                  (loadAsset(curr_map_)));
+                                  (loadAsset(current_map)));
   cinder::gl::draw(tex, getWindowBounds());
 }
 
@@ -222,6 +222,7 @@ void MyApp::PlayBackgroundMusic() {
 
 void MyApp::ResetLoc(Location location) {
   if (mapper.IsScreenChange()) {
+
     engine_.Reset(location);
   }
 }
