@@ -31,10 +31,10 @@ Prisoner Engine::GetPrisoner() const {
 
 Engine::Engine(int width, int height)
   : width_(width),
-    height_(height),
-      direction_(Direction::kRight),
+      height_(height),
+      direction_(Direction::kUp),
       last_direction_(Direction::kUp),
-    prisoner_(Location(8,10)){
+      prisoner_(Location(7,10)) {
 }
 
 void Engine::Step() {

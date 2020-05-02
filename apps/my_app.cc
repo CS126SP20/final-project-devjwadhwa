@@ -62,10 +62,14 @@ void MyApp::update() {
   ResetLoc(player_parallel_loc);
 
 
-  is_up_valid = mapper.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
-  is_down_valid = mapper.GetMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
-  is_left_valid = mapper.GetMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
-  is_right_valid = mapper.GetMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
+  is_up_valid =
+      mapper.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
+  is_down_valid =
+      mapper.GetMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
+  is_left_valid =
+      mapper.GetMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
+  is_right_valid =
+      mapper.GetMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
 
 }
 
@@ -125,19 +129,20 @@ void MyApp::keyDown(KeyEvent event) {
 
 
 void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
-  if (is_up_valid &&
-      event.getCode() == KeyEvent::KEY_UP ||
-      event.getCode() == KeyEvent::KEY_w) {
-    engine_.SetDirection(Direction::kUp);
-    return;
-  } else {
-    engine_.SetDirection(Direction::kNull);
-  }
 
   if (is_down_valid &&
       event.getCode() == KeyEvent::KEY_DOWN ||
       event.getCode() == KeyEvent::KEY_s) {
     engine_.SetDirection(Direction::kDown);
+    return;
+  } else {
+    engine_.SetDirection(Direction::kNull);
+  }
+
+  if (is_up_valid &&
+      event.getCode() == KeyEvent::KEY_UP ||
+      event.getCode() == KeyEvent::KEY_w) {
+    engine_.SetDirection(Direction::kUp);
     return;
   } else {
     engine_.SetDirection(Direction::kNull);
