@@ -44,7 +44,7 @@ void Map::ReadMaps() {
   int maze_count = 0;
 
   std::string maze_file =
-      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Break/assets/maze.txt";
+      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/FinalProject/assets/maze.txt";
 
   std::ifstream file(maze_file);
   while (!file.eof()) {
@@ -159,9 +159,9 @@ Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
       } else if (engine.GetDirection() == Direction::kDown) {
         return {curr_col, 2};
       } else if (engine.GetDirection() == Direction::kLeft) {
-        return {kBoardDimension - 3, curr_row};
+        return {kBoardDimension - 2, curr_row};
       } else if (engine.GetDirection() == Direction::kRight){
-        return {2, curr_row};
+        return {1, curr_row};
       }
     }
   }
