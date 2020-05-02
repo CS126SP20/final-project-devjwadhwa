@@ -24,9 +24,11 @@ class Map {
   void SetupMap(std::string map_line);
   std::vector<Map> GetMaps();
   int GetCurrMapKey(const Map& current_map);
+  int GetParallelMapKey(int key, char door);
 
 
- private:
+
+    private:
   const int kBoardDimension = 16;
   int screen_num_{};
   std::vector<std::string> background_images;

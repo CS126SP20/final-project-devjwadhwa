@@ -113,5 +113,24 @@ int Map::GetCurrMapKey(const Map& current_map) {
   return 0;
 }
 
+int Map::GetParallelMapKey(int key, char door) {
+  for (int i = 0; i < maze_maps.size(); i++) {
+    if (i != key) {
+      for (int j = 0; j < kBoardDimension; j++) {
+        for (int k = 0; k < kBoardDimension; k++) {
+
+          // Gets the map with the same door point as the current one
+          if (maze_maps[i].cartesian[j][k] == door) {
+            return i;
+          }
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+
+
 }  // namespace mylibrary
 
