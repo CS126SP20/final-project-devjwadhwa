@@ -34,6 +34,7 @@
 - [x] Implemented complete mapping functionality
 ---
 #### 04/02
+- [x] Added more screens to the game
 - [ ] Added tests for operators
 - [ ] Added tests for other functions
 - [ ] Added JAVADOC style comments
