@@ -25,16 +25,20 @@
 - [x] Implemented code to read txt files
 - [x] Implemented walls
 - [x] Increased Maze Size to fit the Window
+- [x] Made the second maze image and txt file
+---
+#### 04/01
+- [ ] Included second maze
+- [ ] Included map and image reading and segregation
+- [ ] Implemented screen change
+- [ ] Implemented complete mapping functionality
+---
+#### 04/02
 - [ ] Added tests for operators
 - [ ] Added tests for other functions
-- [ ] Made the second maze image and txt file
-- [ ] Refactored Code
----
-#### 04/29
-- [ ]
+- [ ] Added JAVADOC style comments
+- [ ] Added interaction event
 - [ ] 
-- [ ]
-- [ ]
 
 # Development
 
