@@ -83,6 +83,18 @@ void Map::SetupMap(std::string map_line) {
   map.push_back(map_char);
 }
 
+std::string Map::GetMapKeys() {
+  std::string key;
+  for (int i = 0; i < background_images.size(); i++) {
+    if (i == screen_num_) {
+      std::cout<<background_images[i]<<std::endl;
+      //return map_labels_[i];
+      key = background_images[i];
+    }
+  }
+  return key;
+}
+
 std::vector<Map> Map::GetMaps() {
   return maze_maps;
 }

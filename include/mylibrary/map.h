@@ -28,8 +28,9 @@ class Map {
   bool IsScreenChange();
   int GetParallelMapNum();
   Location GetPlayerParallelLoc(const Map& current_map, Engine engine);
+  std::string Map::GetMapKeys();
 
-  private:
+    private:
   const int kBoardDimension = 16;
   int screen_num_{};
   std::vector<std::string> background_images;
