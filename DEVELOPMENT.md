@@ -9,9 +9,9 @@
 - [x] Setup the Background Music 
 ---
 #### 04/26
-- [ ] Setup and the Chess Board with the Keys
-- [ ] Coded the Rules of the keys
-- [ ] Implemented Keys in the Board
+- [x] Setup and the Chess Board with the Keys
+- [x] Coded the Rules of the keys
+- [x] Implemented Keys in the Board
 - [x] Changed the game from Chess to Prison Break 
 - [x] Changed existing code 
 ---
@@ -28,10 +28,10 @@
 - [x] Made the second maze image and txt file
 ---
 #### 04/01
-- [ ] Included second maze
-- [ ] Included map and image reading and segregation
-- [ ] Implemented screen change
-- [ ] Implemented complete mapping functionality
+- [x] Included second maze
+- [x] Included map and image reading and segregation
+- [x] Implemented screen change
+- [x] Implemented complete mapping functionality
 ---
 #### 04/02
 - [ ] Added tests for operators
