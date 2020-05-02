@@ -4,7 +4,7 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
-//#include <cinder/audio/Voice.h>
+#include <cinder/audio/Voice.h>
 #include <mylibrary/direction.h>
 #include <mylibrary/engine.h>
 #include <mylibrary/prisoner.h>
@@ -39,7 +39,7 @@ class MyApp : public cinder::app::App {
  private:
   void DrawBoard();
   void DrawPrisoner();
-  //void PlayBackgroundMusic();
+  void PlayBackgroundMusic();
   //char **ReadMap();
   //char ***SetMap(char maze_[16][16]);
   void CheckMoveValidity(const cinder::app::KeyEvent& event);

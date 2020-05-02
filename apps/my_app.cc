@@ -16,7 +16,7 @@ using cinder::Rectf;
 using mylibrary::Direction;
 using mylibrary::Location;
 
-//cinder::audio::VoiceRef music_background;
+cinder::audio::VoiceRef music_background;
 
 int map_num = 0;
 
@@ -46,10 +46,8 @@ void MyApp::setup() {
   curr_map_ = "maze1.png";
   mapper.ReadImageLabels();
   mapper.ReadGameScreens();
-  //ReadMap();
-  //SetMap(maze);
   prisoner_dir = 0;
-  //PlayBackgroundMusic();
+  PlayBackgroundMusic();
 }
 
 void MyApp::update() {
@@ -214,13 +212,13 @@ void MyApp::DrawBoard() {
   cinder::gl::draw(tex, getWindowBounds());
 }
 
-//void MyApp::PlayBackgroundMusic() {
-//  cinder::audio::SourceFileRef sourceFile =
-//      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
-//  music_background = cinder::audio::Voice::create(sourceFile);
-//
-//  music_background->start();
-//}
+void MyApp::PlayBackgroundMusic() {
+  cinder::audio::SourceFileRef sourceFile =
+      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
+  music_background = cinder::audio::Voice::create(sourceFile);
+
+  music_background->start();
+}
 
 void MyApp::ResetLoc(Location location) {
   if (mapper.IsScreenChange()) {
