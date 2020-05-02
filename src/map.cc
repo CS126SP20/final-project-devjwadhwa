@@ -27,7 +27,7 @@ Map::Map(std::vector<std::vector<char>> game_map) {
 void Map::ReadBackgroundImages() {
 
   std::string background_file =
-      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Break/assets/background.txt";
+      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/FinalProject/assets/background.txt";
 
   std::ifstream images_file(background_file);
 
