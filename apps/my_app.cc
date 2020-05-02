@@ -43,7 +43,7 @@ MyApp::MyApp() : engine_(kWidth, kHeight) {}
 void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
-  current_map = "maze1.png";
+  current_map = "Intro.png";
   mapper.ReadBackgroundImages();
   mapper.ReadMaps();
   prisoner_dir = 0;

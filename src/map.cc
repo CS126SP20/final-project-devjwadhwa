@@ -140,7 +140,7 @@ int Map::GetParallelMapKey(int key, char door) {
       }
     }
 
-  //return 0;
+  return 0;
 }
 
 Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {

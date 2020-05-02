@@ -34,8 +34,7 @@ Engine::Engine(int width, int height)
     height_(height),
       direction_(Direction::kRight),
       last_direction_(Direction::kUp),
-    prisoner_(Location(0,1)){
-  //Reset{(0,0)};
+    prisoner_(Location(8,10)){
 }
 
 void Engine::Step() {
