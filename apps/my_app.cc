@@ -62,10 +62,10 @@ void MyApp::update() {
   ResetLoc(new_player_loc);
 
 
-  is_up_valid = mapper.GetScreen()[map_num].coordinates_[curr_row - 1][curr_col] != '1';
-  is_down_valid = mapper.GetScreen()[map_num].coordinates_[curr_row + 1][curr_col] != '1';
-  is_left_valid = mapper.GetScreen()[map_num].coordinates_[curr_row][curr_col - 1] != '1';
-  is_right_valid = mapper.GetScreen()[map_num].coordinates_[curr_row][curr_col + 1] != '1';
+  is_up_valid = mapper.GetScreen()[map_num].cartesian[curr_row - 1][curr_col] != '1';
+  is_down_valid = mapper.GetScreen()[map_num].cartesian[curr_row + 1][curr_col] != '1';
+  is_left_valid = mapper.GetScreen()[map_num].cartesian[curr_row][curr_col - 1] != '1';
+  is_right_valid = mapper.GetScreen()[map_num].cartesian[curr_row][curr_col + 1] != '1';
 
 }
 

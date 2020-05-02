@@ -25,17 +25,18 @@ class Map {
   std::vector<Map> GetMaps();
   int GetCurrMapKey(const Map& current_map);
   int GetParallelMapKey(int key, char door);
+  bool IsScreenChange();
+  int GetParallelMapNum();
+  Location GetPlayerParallelLoc(const Map& current_map, Engine engine);
 
-
-
-    private:
+  private:
   const int kBoardDimension = 16;
   int screen_num_{};
   std::vector<std::string> background_images;
   bool is_screen_change_ = false;
   std::vector<mylibrary::Map> maze_maps;
   std::vector<std::vector<char>> map;
-  std::string entry_points_ = "a";
+  std::string exits = "abcdef";
 };
 
 }  // namespace mylibrary

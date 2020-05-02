@@ -130,6 +130,39 @@ int Map::GetParallelMapKey(int key, char door) {
   return 0;
 }
 
+Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
+  Location loc = engine.GetPrisoner().GetLoc();
+  int curr_row = loc.Col();
+  int curr_col = loc.Row();
+
+  for (int i = 0; i < exits.size(); i++) {
+    if (current_map.cartesian[curr_row][curr_col] == exits.at(i)) {
+      screen_num_ = GetParallelMapKey(GetCurrMapKey(current_map),
+                                           exits.at(i));
+      is_screen_change_ = true;
+
+      if (engine.GetDirection() == Direction::kUp) {
+        return {curr_col, kBoardDimension - 2};
+      } else if (engine.GetDirection() == Direction::kDown) {
+        return {curr_col, 2};
+      } else if (engine.GetDirection() == Direction::kLeft) {
+        return {kBoardDimension - 2, curr_row};
+      } else if (engine.GetDirection() == Direction::kRight){
+        return {2, curr_row};
+      }
+    }
+  }
+  return loc;
+}
+
+bool Map::IsScreenChange() {
+  return is_screen_change_;
+}
+
+int Map::GetParallelMapNum() {
+  return screen_num_;
+}
+
 
 
 }  // namespace mylibrary
