@@ -18,12 +18,14 @@ class Map {
 
  public:
   Map();
-  explicit Map(std::vector<std::vector<char>> game_screen);
+  explicit Map(std::vector<std::vector<char>> game_map);
+  void ReadBackgroundImages();
+
 
 
  private:
   int screen_num_{};
-  std::vector<std::string> map_labels_;
+  std::vector<std::string> background_images;
   bool is_screen_change_ = false;
   std::vector<mylibrary::Map> game_maps_;
   std::vector<std::vector<char>> map_;
