@@ -18,7 +18,7 @@ using mylibrary::Location;
 
 cinder::audio::VoiceRef music_background;
 
-int map_num = 0;
+int map_key = 0;
 
 const int kWidth = 16;
 const int kHeight = 16;
@@ -44,8 +44,8 @@ void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
   curr_map_ = "maze1.png";
-  mapper.ReadImageLabels();
-  mapper.ReadGameScreens();
+  mapper.ReadBackgroundImages();
+  mapper.ReadMaps();
   prisoner_dir = 0;
   PlayBackgroundMusic();
 }
@@ -54,18 +54,18 @@ void MyApp::update() {
   Location location = engine_.GetPrisoner().GetLoc();
   int curr_col = location.Row();
   int curr_row = location.Col();
-  Location new_player_loc = mapper.GetPlayerNewLoc(mapper.GetScreen()[map_num],
+  Location new_player_loc = mapper.GetPlayerParallelLoc(mapper.GetMaps()[map_key],
                                                    engine_);
-  curr_map_ = mapper.GetMapLabels();
-  map_num = mapper.GetNewScreenNum();
+  curr_map_ = mapper.GetMapKeys();
+  map_key = mapper.GetParallelMapNum();
 
   ResetLoc(new_player_loc);
 
 
-  is_up_valid = mapper.GetScreen()[map_num].cartesian[curr_row - 1][curr_col] != '1';
-  is_down_valid = mapper.GetScreen()[map_num].cartesian[curr_row + 1][curr_col] != '1';
-  is_left_valid = mapper.GetScreen()[map_num].cartesian[curr_row][curr_col - 1] != '1';
-  is_right_valid = mapper.GetScreen()[map_num].cartesian[curr_row][curr_col + 1] != '1';
+  is_up_valid = mapper.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
+  is_down_valid = mapper.GetMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
+  is_left_valid = mapper.GetMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
+  is_right_valid = mapper.GetMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
 
 }
 
