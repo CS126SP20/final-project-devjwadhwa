@@ -1,3 +1,5 @@
-Intro.png
+intro.png
+jail.png
+tunnel.png
 maze1.png
 maze2.png

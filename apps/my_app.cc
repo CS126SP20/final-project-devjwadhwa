@@ -3,10 +3,9 @@
 #include "my_app.h"
 
 #include <cinder/app/App.h>
-
-#include <cinder/gl/gl.h>
 #include <cinder/gl/Texture.h>
 #include <cinder/gl/draw.h>
+#include <cinder/gl/gl.h>
 #include <gflags/gflags.h>
 
 namespace myapp {
@@ -124,6 +123,14 @@ void MyApp::keyDown(KeyEvent event) {
       engine_.Step();
       break;
     }
+    /*
+    case KeyEvent::KEY_SPACE: {
+        b2Vec2 vel = body->GetLinearVelocity();
+        vel.y = 10;//upwards - don't change x velocity
+        body->SetLinearVelocity( vel );
+      }
+      break;
+      */
   }
 }
 
