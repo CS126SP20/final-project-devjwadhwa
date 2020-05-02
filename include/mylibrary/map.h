@@ -20,15 +20,16 @@ class Map {
   Map();
   explicit Map(std::vector<std::vector<char>> game_map);
   void ReadBackgroundImages();
-
-
+  void ReadMaps();
+  void SetupMap(std::string map_line);
 
  private:
+  const int kBoardDimension = 16;
   int screen_num_{};
   std::vector<std::string> background_images;
   bool is_screen_change_ = false;
-  std::vector<mylibrary::Map> game_maps_;
-  std::vector<std::vector<char>> map_;
+  std::vector<mylibrary::Map> maze_maps;
+  std::vector<std::vector<char>> map;
   std::string entry_points_ = "a";
 };
 

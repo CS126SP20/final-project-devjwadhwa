@@ -34,5 +34,40 @@ void Map::ReadBackgroundImages() {
   }
 }
 
+void Map::ReadMaps() {
+  int maze_count = 0;
+
+  std::string maze_file =
+      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Break/assets/maze.txt";
+  std::ifstream file(maze_file);
+  while (!file.eof()) {
+    std::string line_maze;
+    std::getline(file, line_maze);
+    if (!line_maze.empty()) {
+      SetupMap(line_maze);
+      maze_count++;
+
+      if (maze_count == kBoardDimension) {
+        Map game_screen = Map(map);
+        maze_maps.push_back(game_screen);
+
+        maze_count = 0;
+        map.clear();
+      }
+    }
+  }
+}
+
+void Map::SetupMap(std::string map_line) {
+  std::vector<char> map_char;
+  // Reserves space for each line
+  map_char.reserve(kBoardDimension);
+
+  for (int i = 0; i < kBoardDimension; i++) {
+    map_char.push_back(map_line.at(i));
+  }
+  map.push_back(map_char);
+}
+
 }  // namespace mylibrary
 
