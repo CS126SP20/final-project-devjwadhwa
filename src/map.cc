@@ -83,7 +83,7 @@ void Map::SetupMap(std::string map_line) {
   map.push_back(map_char);
 }
 
-std::string Map::GetBackgroundKeys() {
+std::string Map::GetBackgroundKey() {
   std::string key;
   for (int i = 0; i < background_images.size(); i++) {
     if (i == screen_num_) {
