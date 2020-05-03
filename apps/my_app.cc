@@ -34,7 +34,7 @@ bool is_left_valid = true;
 bool is_right_valid = true;
 
 cinder::fs::path image_path;
-cinder::fs::path current_map;
+std::string current_map;
 
 
 MyApp::MyApp() : engine_(kWidth, kHeight) {}
@@ -42,7 +42,6 @@ MyApp::MyApp() : engine_(kWidth, kHeight) {}
 void MyApp::setup() {
   cinder::gl::disableDepthRead();
   cinder::gl::disableDepthWrite();
-  current_map = "Intro.png";
   mapper.ReadBackgroundImages();
   mapper.ReadMaps();
   prisoner_dir = 0;
@@ -60,7 +59,6 @@ void MyApp::update() {
 
   ResetLoc(player_parallel_loc);
 
-
   is_up_valid =
       mapper.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
   is_down_valid =
@@ -76,7 +74,6 @@ void MyApp::draw() {
   cinder::gl::enableAlphaBlending();
   cinder::gl::clear();
   cinder::gl::color(1,1,1);
-
   DrawBoard();
   DrawPrisoner();
 }
@@ -226,7 +223,7 @@ void MyApp::DrawBoard() {
 
 void MyApp::PlayBackgroundMusic() {
   cinder::audio::SourceFileRef sourceFile =
-      cinder::audio::load(cinder::app::loadAsset("back.mp3"));
+      cinder::audio::load(cinder::app::loadAsset ("background.mp3"));
   music_background = cinder::audio::Voice::create(sourceFile);
 
   music_background->start();

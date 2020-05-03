@@ -26,24 +26,13 @@ class MyApp : public cinder::app::App {
   mylibrary::Engine engine_;
   mylibrary::Map mapper;
 
-
-  //char maze[16][16];
-  //char maps[20][20][20];
   int prisoner_dir;
-  //bool is_up_valid;
-//bool is_down_valid;
-//bool is_left_valid;
-//bool is_right_valid;
-
 
  private:
   void DrawBoard();
   void DrawPrisoner();
   void PlayBackgroundMusic();
-  //char **ReadMap();
-  //char ***SetMap(char maze_[16][16]);
   void CheckMoveValidity(const cinder::app::KeyEvent& event);
-
   void ResetLoc(mylibrary::Location location);
 };
 
