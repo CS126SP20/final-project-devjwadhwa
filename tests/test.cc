@@ -84,7 +84,7 @@ TEST_CASE("Direction Change", "[engine][direction]") {
 
   SECTION("Initial Direction") {
     engine.Step();
-    REQUIRE(engine.GetDirection() == Direction::kDown);
+    REQUIRE(engine.GetDirection() == Direction::kUp);
   }
 
   SECTION("Direction Up") {
@@ -112,4 +112,40 @@ TEST_CASE("Direction Change", "[engine][direction]") {
     REQUIRE(engine.GetDirection() == Direction::kNull);
   }
 }
+
+TEST_CASE("Location Change", "[engine][location][direction]") {
+  int row = 0;
+  int col = 0;
+
+  Engine engine(row, col);
+
+  SECTION("Step Up") {
+    REQUIRE(engine.FromDirection(Direction::kUp) == Location{0, -1});
+  }
+
+  SECTION("Step Down") {
+    REQUIRE(engine.FromDirection(Direction::kDown) == Location{0, +1});
+  }
+
+  SECTION("Step Right") {
+    REQUIRE(engine.FromDirection(Direction::kRight) == Location{+1, 0});
+  }
+
+  SECTION("Step Left") {
+    REQUIRE(engine.FromDirection(Direction::kLeft) == Location{-1, 0});
+  }
+}
+
+TEST_CASE("Prisoner Location", "[prisoner][location][direction]") {
+  Prisoner prisoner(Location{3, 4});
+
+  SECTION("Prisoner Location") { REQUIRE(prisoner.GetLoc() == Location{3, 4}); }
+
+  SECTION("Prisoner Location with transportation") {
+    prisoner.SetLoc(Location{12, 8});
+    REQUIRE(prisoner.GetLoc() == Location{12, 8});
+  }
+}
+
+
 

@@ -101,12 +101,12 @@ class Map {
 
  private:
   /**
-   * Dimension of the board
+   * Dimension of the board.
    */
   const int kDimension = 16;
 
   /**
-   * Constant for reallocating the Prisoner a position
+   * Constant for reallocating the Prisoner a position.
    */
   const int kLoc = 2;
 

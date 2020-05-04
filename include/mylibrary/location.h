@@ -17,6 +17,7 @@ class Location {
    * Comparison operator.
    *
    * @param rhs Other location
+   *
    * @return New location
    */
   bool operator==(const Location& rhs) const;
@@ -24,7 +25,8 @@ class Location {
   /**
    * Addition operator.
    *
-   * @param rhs Other locatiom
+   * @param rhs Other location
+   *
    * @return New location
    */
   Location operator+(const Location& rhs) const;
@@ -32,7 +34,8 @@ class Location {
   /**
    * Modulus operator.
    *
-   * @param rhs Other location
+   * @param rhs :mOther location
+   *
    * @return New location
    */
   Location operator%(const Location& rhs) const;

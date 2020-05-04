@@ -36,6 +36,15 @@ class Engine {
   Prisoner GetPrisoner() const;
 
   /**
+   * Setting definitions for Steps
+   *
+   * @param direction : The direction the Prisoner is facing
+   *
+   * @return The new location
+   */
+  Location FromDirection(const Direction direction);
+
+  /**
    * Getter for the Direction.
    *
    * @return the Direction

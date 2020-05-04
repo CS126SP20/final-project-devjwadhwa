@@ -8,7 +8,7 @@
 namespace mylibrary {
 
 // Converts a direction into a delta location (Inspired from Snake)
-Location FromDirection(const Direction direction) {
+Location Engine::FromDirection(const Direction direction) {
   switch (direction) {
     case Direction::kLeft:
       return {-1, 0};
