@@ -7,7 +7,7 @@
 
 namespace mylibrary {
 
-// Converts a direction into a delta location.
+// Converts a direction into a delta location (Inspired from Snake)
 Location FromDirection(const Direction direction) {
   switch (direction) {
     case Direction::kLeft:
@@ -38,6 +38,7 @@ Engine::Engine(int width, int height)
 }
 
 void Engine::Step() {
+  // Inspired from Snake
   Location d_loc = FromDirection(direction_);
   Location new_head_loc =
       (prisoner_.GetLoc() + d_loc) % Location(height_, width_);

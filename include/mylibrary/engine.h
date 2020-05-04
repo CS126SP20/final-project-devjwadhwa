@@ -10,29 +10,72 @@ namespace mylibrary {
 
 class Engine {
  public:
-  // Creates a new window of the given size.
+  /**
+   * Creates a new window of the given size.
+   *
+   * @param width : Width of the window
+   * @param height : Height of the window
+   */
   Engine(int width, int height);
 
-  // Executes a time step: moves the prisoner, etc.
+  /**
+   * Executes a time step: moves the prisoner etc.
+   */
   void Step();
 
-  // Changes the direction of the prisoner for the next time step.
+  /**
+   * Changes the direction of the prisoner for the next time step.
+   */
   void SetDirection(Direction);
 
+  /**
+   * Getter for the Prisoner.
+   *
+   * @return the Prisoner
+   */
   Prisoner GetPrisoner() const;
+
+  /**
+   * Getter for the Direction.
+   *
+   * @return the Direction
+   */
   Direction GetDirection();
 
+  /**
+   * Reset the Prisoner's location to thr given one.
+   *
+   * @param location : The Rest location coordinates
+   */
   void Reset(Location location);
+
  private:
+  /**
+   * Object of the Prisoner class.
+   */
   Prisoner prisoner_;
+
+  /**
+   * Object of the current Direction class.
+   */
   Direction direction_;
+
+  /**
+   * Object of the previous Direction class.
+   */
   Direction last_direction_;
+
+  /**
+   * Width of the window.
+   */
   const int width_;
+
+  /**
+   * Height of the window.
+   */
   const int height_;
 };
 
-
 }  // namespace mylibrary
-
 
 #endif // FINALPROJECT_MYLIBRARY_EXAMPLE_H_

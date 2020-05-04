@@ -45,7 +45,7 @@ void MyApp::setup() {
   game_mapper_.ReadBackgroundImages();
   game_mapper_.ReadMaps();
   // Initializing prisoner direction
-  prisoner_dir = static_cast<int>(Direction::kDown);
+  prisoner_dir_state = static_cast<int>(Direction::kDown);
   PlayBackgroundMusic();
 }
 
@@ -95,7 +95,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_DOWN:
     case KeyEvent::KEY_s: {
       CheckMoveValidity(event);
-      prisoner_dir = static_cast<int>(Direction::kDown);
+      prisoner_dir_state = static_cast<int>(Direction::kDown);
       step_down++;
       DrawPrisoner();
       game_engine_.Step();
@@ -105,7 +105,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_UP:
     case KeyEvent::KEY_w: {
       CheckMoveValidity(event);
-      prisoner_dir = static_cast<int>(Direction::kUp);
+      prisoner_dir_state = static_cast<int>(Direction::kUp);
       step_up++;
       DrawPrisoner();
       game_engine_.Step();
@@ -115,7 +115,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_LEFT:
     case KeyEvent::KEY_a: {
       CheckMoveValidity(event);
-      prisoner_dir = static_cast<int>(Direction::kLeft);
+      prisoner_dir_state = static_cast<int>(Direction::kLeft);
       step_left++;
       DrawPrisoner();
       game_engine_.Step();
@@ -125,7 +125,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_RIGHT:
     case KeyEvent::KEY_d: {
       CheckMoveValidity(event);
-      prisoner_dir = static_cast<int>(Direction::kRight);
+      prisoner_dir_state = static_cast<int>(Direction::kRight);
       step_right++;
       DrawPrisoner();
       game_engine_.Step();
@@ -187,28 +187,28 @@ void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
   const Location loc = game_engine_.GetPrisoner().GetLoc();
 
-  if (prisoner_dir == static_cast<int>(Direction::kDown)) {
+  if (prisoner_dir_state == static_cast<int>(Direction::kDown)) {
     if (step_down % 2 == 1) {
       image_path = cinder::fs::path("down_1.png");
     } else {
       image_path = cinder::fs::path("down_2.png");
     }
 
-  } else if (prisoner_dir == static_cast<int>(Direction::kUp)) {
+  } else if (prisoner_dir_state == static_cast<int>(Direction::kUp)) {
     if (step_up % 2 == 1) {
       image_path = cinder::fs::path("up_1.png");
     } else {
       image_path = cinder::fs::path("up_2.png");
     }
 
-  } else if (prisoner_dir == static_cast<int>(Direction::kLeft)) {
+  } else if (prisoner_dir_state == static_cast<int>(Direction::kLeft)) {
     if (step_left % 2 == 1) {
       image_path = cinder::fs::path("left_1.png");
      } else {
        image_path = cinder::fs::path("left_2.png");
     }
 
-  } else if (prisoner_dir == static_cast<int>(Direction::kRight)) {
+  } else if (prisoner_dir_state == static_cast<int>(Direction::kRight)) {
     if (step_right % 2 == 1) {
       image_path = cinder::fs::path("right_1.png");
     } else {
@@ -249,22 +249,4 @@ void MyApp::ResetLoc(Location location) {
     game_engine_.Reset(location);
   }
 }
-
-void MyApp::CheckForWalls() {
-//  // Gets the location of the character in the current map
-//  Location location = game_engine_.GetPrisoner().GetLoc();
-//  int curr_col = location.Row();
-//  int curr_row = location.Col();
-//
-//  // Checks if the next move is into a wall
-//  is_up_valid =
-//      game_mapper_.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
-//  is_down_valid =
-//      game_mapper_.GetMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
-//  is_left_valid =
-//      game_mapper_.GetMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
-//  is_right_valid =
-//      game_mapper_.GetMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
-}
-
 }  // namespace myapp

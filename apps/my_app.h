@@ -24,12 +24,22 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
+  /*
+   * Object of Game Engine class
+   */
   mylibrary::Engine game_engine_;
+
+  /**
+   * Object of Map class
+   */
   mylibrary::Map game_mapper_;
-  int prisoner_dir;
+
+  /**
+   * Constant which decides the direction state of the prisoner
+   */
+  int prisoner_dir_state;
 
  private:
-
   /**
    * Draws the then background of the scene
    */
