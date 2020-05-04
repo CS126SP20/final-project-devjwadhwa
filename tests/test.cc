@@ -62,3 +62,17 @@ TEST_CASE("Location Operators", "[location]") {
   }
 }
 
+TEST_CASE("Location Pointers", "[location]") {
+  Location location{4,12};
+
+  SECTION("Row Value") {
+    int row = location.Row();
+    REQUIRE(row == 4);
+  }
+
+  SECTION("Column Value") {
+    int col = location.Col();
+    REQUIRE(col == 12);
+  }
+}
+
