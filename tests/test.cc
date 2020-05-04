@@ -76,3 +76,40 @@ TEST_CASE("Location Pointers", "[location]") {
   }
 }
 
+TEST_CASE("Direction Change", "[engine][direction]") {
+  int row = 9;
+  int col = 11;
+
+  Engine engine(row,col);
+
+  SECTION("Initial Direction") {
+    engine.Step();
+    REQUIRE(engine.GetDirection() == Direction::kDown);
+  }
+
+  SECTION("Direction Up") {
+    engine.SetDirection(Direction::kUp);
+    REQUIRE(engine.GetDirection() == Direction::kUp);
+  }
+
+  SECTION("Direction Down") {
+    engine.SetDirection(Direction::kDown);
+    REQUIRE(engine.GetDirection() == Direction::kDown);
+  }
+
+  SECTION("Direction Right") {
+    engine.SetDirection(Direction::kRight);
+    REQUIRE(engine.GetDirection() == Direction::kRight);
+  }
+
+  SECTION("Direction Left") {
+    engine.SetDirection(Direction::kLeft);
+    REQUIRE(engine.GetDirection() == Direction::kLeft);
+  }
+
+  SECTION("Direction Null") {
+    engine.SetDirection(Direction::kNull);
+    REQUIRE(engine.GetDirection() == Direction::kNull);
+  }
+}
+
