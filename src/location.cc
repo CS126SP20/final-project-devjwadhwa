@@ -23,8 +23,12 @@ Location Location::operator%(const Location& rhs) const {
   return {mod(row_, rhs.row_), mod(col_, rhs.col_)};
 }
 
-int Location::Row() const { return row_; }
+int Location::Row() const {
+  return row_;
+}
 
-int Location::Col() const { return col_; }
+int Location::Col() const {
+  return col_;
+}
 
 }  // namespace mylibrary

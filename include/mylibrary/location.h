@@ -13,24 +13,63 @@ class Location {
  public:
   Location(int row, int col);
 
-  // Comparison operators.
+  /**
+   * Comparison operator.
+   *
+   * @param rhs Other location
+   * @return New location
+   */
   bool operator==(const Location& rhs) const;
 
-  // Vector operators.
+  /**
+   * Addition operator.
+   *
+   * @param rhs Other locatiom
+   * @return New location
+   */
   Location operator+(const Location& rhs) const;
-  // Note: Always returns positive coordinates.
+
+  /**
+   * Modulus operator.
+   *
+   * @param rhs Other location
+   * @return New location
+   */
   Location operator%(const Location& rhs) const;
 
-
-  // Accessors.
+  /**
+   * Row accessor.
+   *
+   * @return Row
+   */
   int Row() const;
+
+  /**
+   * Column accessor.
+   *
+   * @return Column
+   */
   int Col() const;
 
  private:
+  /**
+   * Row of the Location.
+   */
   int row_;
+
+  /**
+   * Column of the Location.
+   */
   int col_;
 };
 
+/**
+ * Operator overloading,
+ *
+ * @param os : ostream pointer
+ * @param location Other location
+ * @return Overloaded value
+ */
 std::ostream& operator<<(std::ostream& os, const Location& location);
 
 }  // namespace mylibrary
