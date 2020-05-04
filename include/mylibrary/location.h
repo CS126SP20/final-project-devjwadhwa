@@ -63,15 +63,6 @@ class Location {
   int col_;
 };
 
-/**
- * Operator overloading,
- *
- * @param os : ostream pointer
- * @param location Other location
- * @return Overloaded value
- */
-std::ostream& operator<<(std::ostream& os, const Location& location);
-
 }  // namespace mylibrary
 
 #endif  // FINALPROJECT_LOCATION_H

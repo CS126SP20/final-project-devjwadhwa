@@ -3,13 +3,62 @@
 #define CATCH_CONFIG_MAIN
 
 #include <catch2/catch.hpp>
-#include <cinder/Rand.h>
 
-#include <mylibrary/example.h>
+#include <mylibrary/location.h>
+#include <mylibrary/engine.h>
+#include <mylibrary/direction.h>
+#include <mylibrary/prisoner.h>
+#include <mylibrary/map.h>
 
+using mylibrary::Location;
+using mylibrary::Engine;
+using mylibrary::Direction;
+using mylibrary::Prisoner;
+using mylibrary::Map;
 
-TEST_CASE("Random sanity test", "[random]") {
-  const float random = cinder::randFloat();
-  REQUIRE(0. <= random);
-  REQUIRE(random <= 1.);
+std::vector<std::vector<char>> test_screen =
+    {{'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
+     {'1','1','1','1','1','1','1','1','1','1','1','1','0','0','0','c'},
+     {'1','1','1','1','1','1','0','0','0','0','0','1','0','1','1','1'},
+     {'1','1','1','1','1','1','0','1','1','1','0','1','0','0','1','1'},
+     {'1','1','1','1','1','1','0','0','0','1','0','1','1','0','1','1'},
+     {'1','1','1','1','1','1','1','1','0','1','0','1','0','0','1','1'},
+     {'1','1','1','1','1','1','1','1','0','1','0','1','0','1','1','1'},
+     {'1','1','0','0','0','0','0','1','0','1','0','1','0','0','1','1'},
+     {'1','1','0','0','0','0','0','1','0','1','0','1','1','0','1','1'},
+     {'b','0','0','1','1','1','0','1','0','1','0','1','0','0','1','1'},
+     {'b','0','0','1','1','1','0','1','0','1','0','1','0','1','1','1'},
+     {'1','1','1','1','1','1','0','1','0','1','0','1','0','0','1','1'},
+     {'1','1','1','1','1','1','0','0','0','1','0','1','1','0','1','1'},
+     {'1','1','1','1','1','1','1','1','1','1','0','0','0','0','1','1'},
+     {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
+     {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'}};
+
+Map test_map = Map(test_screen);
+
+TEST_CASE("Location Operators", "[location]") {
+
+  SECTION("Addition Operator") {
+    Location initial(15,11);
+    Location final(2,6);
+
+    Location result = initial + final;
+    REQUIRE(result == Location{17, 17});
+  }
+
+  SECTION("Equals Operator") {
+    Location initial(15,11);
+    Location final(15,11);
+
+    REQUIRE(initial == final);
+  }
+
+  SECTION("Modulus Operator") {
+    Location initial(15,11);
+    Location final(2,6);
+
+    Location result = initial % final;
+    REQUIRE(result == Location{1, 5});
+  }
 }
+
