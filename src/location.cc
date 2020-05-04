@@ -31,4 +31,9 @@ int Location::Col() const {
   return col_;
 }
 
+std::ostream& operator<<(std::ostream& os, const Location& location) {
+  os << "{row=" << location.Row() << ", col=" << location.Col() << "}";
+  return os;
+}
+
 }  // namespace mylibrary
