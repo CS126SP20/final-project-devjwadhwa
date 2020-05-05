@@ -138,7 +138,7 @@ class Map {
   /**
    * Exit and entry points
    */
-  std::string exits = "abcdef";
+  std::string exits = "abcdefghi";
 };
 
 }  // namespace mylibrary

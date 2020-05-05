@@ -141,13 +141,13 @@ Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
       is_screen_change_ = true;
 
       if (engine.GetDirection() == Direction::kUp) {
-        return {curr_col, kDimension - kLoc};
+        return {curr_col, kDimension - curr_row - 1};
       } else if (engine.GetDirection() == Direction::kDown) {
-        return {curr_col, kLoc};
+        return {curr_col, kDimension - curr_row};
       } else if (engine.GetDirection() == Direction::kLeft) {
-        return {kDimension - kLoc, curr_row};
+        return {kDimension - curr_col - kLoc, curr_row};
       } else if (engine.GetDirection() == Direction::kRight){
-        return {kLoc - 1, curr_row};
+        return {kDimension - curr_col, curr_row};
       }
     }
   }

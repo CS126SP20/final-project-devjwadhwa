@@ -291,7 +291,7 @@ void MyApp::DrawInteractiveText(std::string map) {
 }
 
 void MyApp::DrawTimer() const {
-  int time_left = 60 - timer.getSeconds();
+  int time_left = 90 - timer.getSeconds();
   const std::string text = (std::to_string(time_left));
   const cinder::Color color = {255, 255, 0};
   const cinder::ivec2 size = {70, 50};
@@ -301,7 +301,7 @@ void MyApp::DrawTimer() const {
 }
 
 void MyApp::DrawEndGameScreen() {
-  int time_left = 60 - timer.getSeconds();
+  int time_left = 90 - timer.getSeconds();
   if (time_left <= 0) {
     music_background->stop();
     timer.stop();
