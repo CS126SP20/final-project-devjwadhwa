@@ -3,3 +3,6 @@ jail
 tunnel
 maze1
 maze2
+maze3
+maze4
+maze5
