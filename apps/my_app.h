@@ -39,6 +39,49 @@ class MyApp : public cinder::app::App {
    */
   int prisoner_dir_state;
 
+  /**
+   * Initializing number of steps in each direction
+   */
+  int step_up = 0;
+  int step_down = 0;
+  int step_left = 0;
+  int step_right = 0;
+
+  /**
+ * Initializing validity of movement in each direction
+ */
+  bool is_up_valid = true;
+  bool is_down_valid = true;
+  bool is_left_valid = true;
+  bool is_right_valid = true;
+
+  /**
+   * The map key
+   */
+  int map_key = 0;
+
+  /**
+   * Bool for if user wants to interact
+   */
+  bool draw_textbox = false;
+
+  /**
+   * A counter for drawing textbox
+   */
+  int draw_textbox_count = 0;
+
+  /**
+   * Path for the prisoner image
+   */
+  cinder::fs::path image_path;
+
+  /**
+   * The current map
+   */
+  std::string current_map;
+
+  cinder::audio::VoiceRef music_background;
+
   std::string Intro = "Intro";
   std::string jail = "Jail";
   std::string tunnel = "Tunnel";
