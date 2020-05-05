@@ -169,3 +169,34 @@ TEST_CASE("Map keys and Map Screens", "[map][key][background]") {
     REQUIRE(map_key == 2);
   }
 }
+
+TEST_CASE("Screen Change", "[map][key][background]") {
+  Map testing_map;
+  testing_map.ReadBackgroundImages();
+  testing_map.ReadMaps();
+
+  int row = 0;
+  int col = 0;
+
+  Engine testing_engine(row, col);
+  Location test_loc = testing_map.GetPlayerParallelLoc(test_map, testing_engine);
+
+  SECTION("No Screen Change") {
+    REQUIRE(!testing_map.IsScreenChange());
+  }
+
+  SECTION("Intro Player Location") {
+    REQUIRE(test_loc == Location(7,10));
+  }
+
+  testing_engine.Reset(Location(15, 1));
+  Location new_location = testing_map.GetPlayerParallelLoc(test_map, testing_engine);
+
+  SECTION("Screen Change") {
+    REQUIRE(testing_map.IsScreenChange());
+  }
+
+  SECTION("New location") {
+    REQUIRE(new_location == Location(15, 14));
+  }
+}
