@@ -139,7 +139,9 @@ TEST_CASE("Location Change", "[engine][location][direction]") {
 TEST_CASE("Prisoner Location", "[prisoner][location][direction]") {
   Prisoner prisoner(Location{3, 4});
 
-  SECTION("Prisoner Location") { REQUIRE(prisoner.GetLoc() == Location{3, 4}); }
+  SECTION("Prisoner Location") {
+    REQUIRE(prisoner.GetLoc() == Location{3, 4});
+  }
 
   SECTION("Prisoner Location with transportation") {
     prisoner.SetLoc(Location{12, 8});
@@ -147,5 +149,23 @@ TEST_CASE("Prisoner Location", "[prisoner][location][direction]") {
   }
 }
 
+TEST_CASE("Map keys and Map Screens", "[map][key][background]") {
+  Map testing_map;
+  testing_map.ReadBackgroundImages();
+  testing_map.ReadMaps();
 
+  std::vector<Map> testing_map_screens = testing_map.GetMaps();
 
+  SECTION("Number of Screens") { REQUIRE(testing_map_screens.size() == 5); }
+
+  SECTION("Image Backgrounds") {
+    std::string image_background = "intro.png";
+    REQUIRE(testing_map.GetBackgroundKey() == image_background);
+    REQUIRE(testing_map.GetParallelMapNum() == 0);
+  }
+
+  SECTION("Map Key") {
+    int map_key = testing_map.GetCurrMapKey(test_map);
+    REQUIRE(map_key == 2);
+  }
+}
