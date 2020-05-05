@@ -266,6 +266,12 @@ void MyApp::DrawInteractiveText(std::string map) {
         text = maze1;
       } else if (map == "maze2") {
         text = maze2;
+      } else if (map == "maze3") {
+        text = maze3;
+      } else if (map == "maze4") {
+        text = maze4;
+      } else if (map == "maze5") {
+        text = maze5;
       }
 
       const cinder::Color color = {1, 1, 1};

@@ -90,6 +90,10 @@ class MyApp : public cinder::app::App {
   std::string tunnel = "Tunnel";
   std::string maze1 = "Maze1";
   std::string maze2 = "Maze2";
+  std::string maze3 = "Maze3";
+  std::string maze4 = "Maze4";
+  std::string maze5 = "Maze5";
+
 
  private:
   /**
