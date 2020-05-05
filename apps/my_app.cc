@@ -5,6 +5,7 @@
 #include <cinder/app/App.h>
 #include <cinder/gl/Texture.h>
 #include <cinder/gl/draw.h>
+#include <cinder/Color.h>
 #include <cinder/gl/gl.h>
 #include <gflags/gflags.h>
 
@@ -12,6 +13,7 @@ namespace myapp {
 
 using cinder::Rectf;
 using cinder::app::KeyEvent;
+using cinder::TextBox;
 
 using mylibrary::Direction;
 using mylibrary::Location;
@@ -29,11 +31,15 @@ int step_down = 0;
 int step_left = 0;
 int step_right = 0;
 
+int draw_textbox_count = 0;
+
 // Initializing validity of movement in each direction
 bool is_up_valid = true;
 bool is_down_valid = true;
 bool is_left_valid = true;
 bool is_right_valid = true;
+
+bool draw_textbox = false;
 
 cinder::fs::path image_path;
 std::string current_map;
@@ -87,6 +93,7 @@ void MyApp::draw() {
   cinder::gl::color(1,1,1);
   DrawBackground();
   DrawPrisoner();
+  DrawTextbox(current_map);
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -131,14 +138,13 @@ void MyApp::keyDown(KeyEvent event) {
       game_engine_.Step();
       break;
     }
-    /*
+
     case KeyEvent::KEY_h: {
-        b2Vec2 vel = body->GetLinearVelocity();
-        vel.y = 10;//upwards - don't change x velocity
-        body->SetLinearVelocity( vel );
-      }
+      draw_textbox = true;
+      draw_textbox_count++;
+      DrawTextbox(current_map);
       break;
-      */
+    }
   }
 }
 
@@ -232,7 +238,7 @@ void MyApp::DrawBackground() {
   // Current map changes when screen changes
   cinder::gl::Texture2dRef tex =
       cinder::gl::Texture2d::create(loadImage
-                                  (loadAsset(current_map)));
+                                  (loadAsset(current_map + ".png")));
   cinder::gl::draw(tex);
 }
 
@@ -249,4 +255,55 @@ void MyApp::ResetLoc(Location location) {
     game_engine_.Reset(location);
   }
 }
+
+template <typename C>
+void PrintText(const std::string& text, const C& color, const cinder::ivec2& size,
+               const cinder::vec2& loc) {
+  cinder::gl::color(color);
+
+  auto box = TextBox()
+      .alignment(TextBox::CENTER)
+      .font(cinder::Font("Cooper Black", 40))
+      .size(size)
+      .color(color)
+      .backgroundColor(cinder::ColorA(1,1,1,0.6))
+      .text(text);
+
+  const auto box_size = box.getSize();
+  const cinder::vec2 locp = {loc.x - box_size.x / 2, loc.y - box_size.y / 2};
+  const auto surface = box.render();
+  const auto texture = cinder::gl::Texture::create(surface);
+  cinder::gl::draw(texture, locp);
+}
+
+void MyApp::DrawTextbox(std::string map) {
+  if (draw_textbox) {
+    if (draw_textbox_count % 2 == 1) {
+      std::string text = Intro;
+
+      if (map == "jail") {
+        text = jail;
+      } else if (map == "tunnel") {
+        text = tunnel;
+      } else if (map == "maze1") {
+        text = maze1;
+      } else if (map == "maze2") {
+        text = maze2;
+      }
+
+      const cinder::Color color = {1, 1, 1};
+      const cinder::ivec2 size = {600, 200};
+      const cinder::vec2 loc = {400, 600};
+
+      PrintText(text, color, size, loc);
+
+      is_up_valid = false;
+      is_down_valid = false;
+      is_left_valid = false;
+      is_right_valid = false;
+
+    }
+  }
+}
+
 }  // namespace myapp

@@ -39,6 +39,12 @@ class MyApp : public cinder::app::App {
    */
   int prisoner_dir_state;
 
+  std::string Intro = "Intro";
+  std::string jail = "Jail";
+  std::string tunnel = "Tunnel";
+  std::string maze1 = "Maze1";
+  std::string maze2 = "Maze2";
+
  private:
   /**
    * Draws the then background of the scene
@@ -68,6 +74,13 @@ class MyApp : public cinder::app::App {
    * @param location : the new location of the player
    */
   void ResetLoc(mylibrary::Location location);
+
+  /**
+   * Let's the user interact with the Screen
+   *
+   * @param map : The current map
+   */
+  void DrawTextbox(std::string map);
 };
 
 }  // namespace myapp
