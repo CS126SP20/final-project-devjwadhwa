@@ -8,6 +8,7 @@
 #include <cinder/Color.h>
 #include <cinder/gl/gl.h>
 #include <gflags/gflags.h>
+#include <cinder/Timer.h>
 
 namespace myapp {
 
@@ -18,42 +19,21 @@ using cinder::TextBox;
 using mylibrary::Direction;
 using mylibrary::Location;
 
-cinder::audio::VoiceRef music_background;
-
-int map_key = 0;
-
 const int kDimension = 16;
 const int kTile = 50;
 
-// Initializing number of steps in each direction
-int step_up = 0;
-int step_down = 0;
-int step_left = 0;
-int step_right = 0;
-
-int draw_textbox_count = 0;
-
-std::clock_t c_start = std::clock();
-
-
-// Initializing validity of movement in each direction
-bool is_up_valid = true;
-bool is_down_valid = true;
-bool is_left_valid = true;
-bool is_right_valid = true;
-
-bool draw_textbox = false;
-
-cinder::fs::path image_path;
-std::string current_map;
+cinder::Timer timer = new cinder::Timer;
 
 MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 
 void MyApp::setup() {
 
+  timer.start();
+
   // Reads all maps and background images
   game_mapper_.ReadBackgroundImages();
   game_mapper_.ReadMaps();
+
   // Initializing prisoner direction
   prisoner_dir_state = static_cast<int>(Direction::kDown);
   PlayBackgroundMusic();
@@ -99,6 +79,7 @@ void MyApp::draw() {
   DrawPrisoner();
   DrawTextbox(current_map);
   DrawTimer();
+  DrawEndGame(current_map);
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -299,10 +280,11 @@ void MyApp::DrawTextbox(std::string map) {
 }
 
 void MyApp::DrawTimer() const {
-  std::clock_t c_end = std::clock();
-  const std::string text = (std::to_string(int ((c_end - c_start)/1000)));
+
+  int time_left = 60 - timer.getSeconds();
+  const std::string text = (std::to_string(time_left));
   const cinder::Color color = {255, 255, 0};
-  const cinder::ivec2 size = {50, 50};
+  const cinder::ivec2 size = {70, 50};
   const cinder::vec2 loc = {400, 25};
 
   PrintText(text, color, size, loc);
@@ -323,15 +305,18 @@ void MyApp::ResetLoc(Location location) {
 }
 
 
-//void MyApp::DrawEndGame(std::string map) const {
-//  if (map == "maze2") {
-//    const std::string text = std::to_string(time_left_);
-//    const Color color = {1, 1, 1};
-//    const cinder::ivec2 size = {50, 50};
-//    const cinder::vec2 loc = {50, 50};
-//
-//    PrintText(text, color, size, loc);
-//  }
-//}
+void MyApp::DrawEndGame(std::string map) const {
+  int time_left = 60 - timer.getSeconds();
+  if (time_left <= 0) {
+    music_background->stop();
+    timer.stop();
+    const std::string text = "Fuck you Madarchod";
+    const cinder::Color color = {1, 1, 1};
+    const cinder::ivec2 size = {800, 800};
+    const cinder::vec2 loc = {400, 400};
+
+    PrintText(text, color, size, loc);
+  }
+}
 
 }  // namespace myapp
