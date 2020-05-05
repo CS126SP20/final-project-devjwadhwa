@@ -33,6 +33,9 @@ int step_right = 0;
 
 int draw_textbox_count = 0;
 
+std::clock_t c_start = std::clock();
+
+
 // Initializing validity of movement in each direction
 bool is_up_valid = true;
 bool is_down_valid = true;
@@ -47,6 +50,7 @@ std::string current_map;
 MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 
 void MyApp::setup() {
+
   // Reads all maps and background images
   game_mapper_.ReadBackgroundImages();
   game_mapper_.ReadMaps();
@@ -94,6 +98,7 @@ void MyApp::draw() {
   DrawBackground();
   DrawPrisoner();
   DrawTextbox(current_map);
+  DrawTimer();
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -266,7 +271,7 @@ void PrintText(const std::string& text, const C& color, const cinder::ivec2& siz
       .font(cinder::Font("Cooper Black", 40))
       .size(size)
       .color(color)
-      .backgroundColor(cinder::ColorA(1,1,1,0.6))
+      .backgroundColor(cinder::ColorA(0,0,0,0.6))
       .text(text);
 
   const auto box_size = box.getSize();
@@ -305,5 +310,27 @@ void MyApp::DrawTextbox(std::string map) {
     }
   }
 }
+
+void MyApp::DrawTimer() const {
+  std::clock_t c_end = std::clock();
+  const std::string text = (std::to_string(int ((c_end - c_start)/1000)));
+  const cinder::Color color = {255, 255, 0};
+  const cinder::ivec2 size = {50, 50};
+  const cinder::vec2 loc = {400, 25};
+
+  PrintText(text, color, size, loc);
+}
+
+
+//void MyApp::DrawEndGame(std::string map) const {
+//  if (map == "maze2") {
+//    const std::string text = std::to_string(time_left_);
+//    const Color color = {1, 1, 1};
+//    const cinder::ivec2 size = {50, 50};
+//    const cinder::vec2 loc = {50, 50};
+//
+//    PrintText(text, color, size, loc);
+//  }
+//}
 
 }  // namespace myapp

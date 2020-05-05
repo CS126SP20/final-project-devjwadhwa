@@ -81,6 +81,8 @@ class MyApp : public cinder::app::App {
    * @param map : The current map
    */
   void DrawTextbox(std::string map);
+  void DrawEndGame(std::string map) const;
+  void DrawTimer() const;
 };
 
 }  // namespace myapp
