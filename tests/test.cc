@@ -199,4 +199,10 @@ TEST_CASE("Screen Change", "[map][key][background]") {
   SECTION("New location") {
     REQUIRE(new_location == Location(15, 14));
   }
+
+  SECTION("Change in map key") {
+    int new_key = testing_map.GetParallelMapKey(4, 'd');
+    REQUIRE(new_key == 3);
+  }
 }
+
