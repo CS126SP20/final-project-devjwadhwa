@@ -25,7 +25,7 @@ Map::Map(std::vector<std::vector<char>> game_map) {
 
 void Map::ReadBackgroundImages() {
   std::string background_file =
-      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/PrisonTrial/assets/background.txt";
+      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Trial/assets/background.txt";
   std::ifstream images_file(background_file);
 
   while(!images_file.eof()) {
@@ -40,7 +40,7 @@ void Map::ReadBackgroundImages() {
 void Map::ReadMaps() {
   int maze_count = 0;
   std::string maze_file =
-      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/PrisonTrial/assets/maze.txt";
+      "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Trial/assets/maze.txt";
   std::ifstream file(maze_file);
 
   while (!file.eof()) {
