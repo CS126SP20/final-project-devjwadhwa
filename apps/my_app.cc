@@ -239,28 +239,6 @@ void MyApp::DrawPrisoner() {
                          kTile * loc.Col() + kTile));
 }
 
-void MyApp::DrawBackground() {
-  // Current map changes when screen changes
-  cinder::gl::Texture2dRef tex =
-      cinder::gl::Texture2d::create(loadImage
-                                  (loadAsset(current_map + ".png")));
-  cinder::gl::draw(tex);
-}
-
-void MyApp::PlayBackgroundMusic() {
-  cinder::audio::SourceFileRef sourceFile =
-      cinder::audio::load(cinder::app::loadAsset ("background.mp3"));
-  music_background = cinder::audio::Voice::create(sourceFile);
-
-  music_background->start();
-}
-
-void MyApp::ResetLoc(Location location) {
-  if (game_mapper_.IsScreenChange()) {
-    game_engine_.Reset(location);
-  }
-}
-
 template <typename C>
 void PrintText(const std::string& text, const C& color, const cinder::ivec2& size,
                const cinder::vec2& loc) {
@@ -281,11 +259,19 @@ void PrintText(const std::string& text, const C& color, const cinder::ivec2& siz
   cinder::gl::draw(texture, locp);
 }
 
+void MyApp::DrawBackground() {
+  // Current map changes when screen changes
+  cinder::gl::Texture2dRef tex =
+      cinder::gl::Texture2d::create(loadImage
+                                  (loadAsset(current_map + ".png")));
+  cinder::gl::draw(tex);
+}
+
 void MyApp::DrawTextbox(std::string map) {
   if (draw_textbox) {
     if (draw_textbox_count % 2 == 1) {
-      std::string text = Intro;
 
+      std::string text = Intro;
       if (map == "jail") {
         text = jail;
       } else if (map == "tunnel") {
@@ -302,6 +288,7 @@ void MyApp::DrawTextbox(std::string map) {
 
       PrintText(text, color, size, loc);
 
+      // Stops the player from moving when the textbox is on
       is_up_valid = false;
       is_down_valid = false;
       is_left_valid = false;
@@ -319,6 +306,20 @@ void MyApp::DrawTimer() const {
   const cinder::vec2 loc = {400, 25};
 
   PrintText(text, color, size, loc);
+}
+
+void MyApp::PlayBackgroundMusic() {
+  cinder::audio::SourceFileRef sourceFile =
+      cinder::audio::load(cinder::app::loadAsset ("background.mp3"));
+  music_background = cinder::audio::Voice::create(sourceFile);
+
+  music_background->start();
+}
+
+void MyApp::ResetLoc(Location location) {
+  if (game_mapper_.IsScreenChange()) {
+    game_engine_.Reset(location);
+  }
 }
 
 

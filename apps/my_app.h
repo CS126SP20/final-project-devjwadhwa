@@ -82,6 +82,10 @@ class MyApp : public cinder::app::App {
    */
   void DrawTextbox(std::string map);
   void DrawEndGame(std::string map) const;
+
+  /**
+   * Draws a timer for the game
+   */
   void DrawTimer() const;
 };
 
