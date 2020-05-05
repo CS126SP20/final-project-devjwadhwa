@@ -48,8 +48,8 @@ class MyApp : public cinder::app::App {
   int step_right = 0;
 
   /**
- * Initializing validity of movement in each direction
- */
+    * Initializing validity of movement in each direction
+    */
   bool is_up_valid = true;
   bool is_down_valid = true;
   bool is_left_valid = true;
@@ -80,6 +80,9 @@ class MyApp : public cinder::app::App {
    */
   std::string current_map;
 
+  /**
+   * Audio ref for background music
+   */
   cinder::audio::VoiceRef music_background;
 
   std::string Intro = "Intro";
@@ -123,8 +126,12 @@ class MyApp : public cinder::app::App {
    *
    * @param map : The current map
    */
-  void DrawTextbox(std::string map);
-  void DrawEndGame(std::string map) const;
+  void DrawInteractiveText(std::string map);
+
+  /**
+   * Draws the end game
+   */
+  void DrawEndGameScreen();
 
   /**
    * Draws a timer for the game

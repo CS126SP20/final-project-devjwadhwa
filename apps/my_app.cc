@@ -9,6 +9,8 @@
 #include <cinder/gl/gl.h>
 #include <gflags/gflags.h>
 #include <cinder/Timer.h>
+#include <cinder/Rand.h>
+
 
 namespace myapp {
 
@@ -27,7 +29,6 @@ cinder::Timer timer = new cinder::Timer;
 MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 
 void MyApp::setup() {
-
   timer.start();
 
   // Reads all maps and background images
@@ -36,6 +37,7 @@ void MyApp::setup() {
 
   // Initializing prisoner direction
   prisoner_dir_state = static_cast<int>(Direction::kDown);
+
   PlayBackgroundMusic();
 }
 
@@ -47,8 +49,8 @@ void MyApp::update() {
 
   // Gets the location of the character in the parallel map
   Location player_parallel_loc =
-      game_mapper_.GetPlayerParallelLoc(game_mapper_.GetMaps()[map_key],
-                                  game_engine_);
+      game_mapper_.GetPlayerParallelLoc(
+          game_mapper_.GetMaps()[map_key],game_engine_);
 
   // Gets the key to the current map
   current_map = game_mapper_.GetBackgroundKey();
@@ -59,7 +61,6 @@ void MyApp::update() {
   // Resets the location of the player in the parallel map
   ResetLoc(player_parallel_loc);
 
-  // TODO:: Try the below in a function
   // Checks if the next move is into a wall
   is_up_valid =
       game_mapper_.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
@@ -77,9 +78,9 @@ void MyApp::draw() {
   cinder::gl::color(1,1,1);
   DrawBackground();
   DrawPrisoner();
-  DrawTextbox(current_map);
+  DrawInteractiveText(current_map);
   DrawTimer();
-  DrawEndGame(current_map);
+  DrawEndGameScreen();
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -128,7 +129,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_h: {
       draw_textbox = true;
       draw_textbox_count++;
-      DrawTextbox(current_map);
+      DrawInteractiveText(current_map);
       break;
     }
   }
@@ -136,7 +137,6 @@ void MyApp::keyDown(KeyEvent event) {
 
 
 void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
-
   if (is_down_valid &&
       event.getCode() == KeyEvent::KEY_DOWN ||
       event.getCode() == KeyEvent::KEY_s) {
@@ -175,6 +175,7 @@ void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
 }
 
 // TODO:: Optimize DrawPrisoner conditions
+
 void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
   const Location loc = game_engine_.GetPrisoner().GetLoc();
@@ -220,17 +221,27 @@ void MyApp::DrawPrisoner() {
                          kTile * loc.Col() + kTile));
 }
 
+void MyApp::DrawBackground() {
+  // Current map changes when screen changes
+  cinder::gl::Texture2dRef tex =
+      cinder::gl::Texture2d::create(loadImage(
+          loadAsset(current_map + ".png")));
+
+  cinder::gl::draw(tex);
+}
+
 template <typename C>
 void PrintText(const std::string& text, const C& color, const cinder::ivec2& size,
                const cinder::vec2& loc) {
   cinder::gl::color(color);
 
+  // Draws a Textbox
   auto box = TextBox()
       .alignment(TextBox::CENTER)
       .font(cinder::Font("Cooper Black", 40))
       .size(size)
       .color(color)
-      .backgroundColor(cinder::ColorA(0,0,0,0.6))
+      .backgroundColor(cinder::ColorA(0,0,0,0.7))
       .text(text);
 
   const auto box_size = box.getSize();
@@ -240,16 +251,10 @@ void PrintText(const std::string& text, const C& color, const cinder::ivec2& siz
   cinder::gl::draw(texture, locp);
 }
 
-void MyApp::DrawBackground() {
-  // Current map changes when screen changes
-  cinder::gl::Texture2dRef tex =
-      cinder::gl::Texture2d::create(loadImage
-                                  (loadAsset(current_map + ".png")));
-  cinder::gl::draw(tex);
-}
-
-void MyApp::DrawTextbox(std::string map) {
+void MyApp::DrawInteractiveText(std::string map) {
   if (draw_textbox) {
+
+    // Once hit - the box pops up, twice - it closes
     if (draw_textbox_count % 2 == 1) {
 
       std::string text = Intro;
@@ -280,7 +285,6 @@ void MyApp::DrawTextbox(std::string map) {
 }
 
 void MyApp::DrawTimer() const {
-
   int time_left = 60 - timer.getSeconds();
   const std::string text = (std::to_string(time_left));
   const cinder::Color color = {255, 255, 0};
@@ -290,9 +294,30 @@ void MyApp::DrawTimer() const {
   PrintText(text, color, size, loc);
 }
 
+void MyApp::DrawEndGameScreen() {
+  int time_left = 60 - timer.getSeconds();
+  if (time_left <= 0) {
+    music_background->stop();
+    timer.stop();
+
+    const std::string text = "Game Over";
+    const cinder::Color color = {1, 1, 1};
+    const cinder::ivec2 size = {800, 800};
+    const cinder::vec2 loc = {400, 400};
+    PrintText(text, color, size, loc);
+
+    // Stops the player from moving when the textbox is on
+    is_up_valid = false;
+    is_down_valid = false;
+    is_left_valid = false;
+    is_right_valid = false;
+  }
+}
+
 void MyApp::PlayBackgroundMusic() {
   cinder::audio::SourceFileRef sourceFile =
-      cinder::audio::load(cinder::app::loadAsset ("background.mp3"));
+      cinder::audio::load(
+          cinder::app::loadAsset ("background.mp3"));
   music_background = cinder::audio::Voice::create(sourceFile);
 
   music_background->start();
@@ -301,21 +326,6 @@ void MyApp::PlayBackgroundMusic() {
 void MyApp::ResetLoc(Location location) {
   if (game_mapper_.IsScreenChange()) {
     game_engine_.Reset(location);
-  }
-}
-
-
-void MyApp::DrawEndGame(std::string map) const {
-  int time_left = 60 - timer.getSeconds();
-  if (time_left <= 0) {
-    music_background->stop();
-    timer.stop();
-    const std::string text = "Fuck you Madarchod";
-    const cinder::Color color = {1, 1, 1};
-    const cinder::ivec2 size = {800, 800};
-    const cinder::vec2 loc = {400, 400};
-
-    PrintText(text, color, size, loc);
   }
 }
 
