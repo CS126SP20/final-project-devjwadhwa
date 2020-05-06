@@ -117,7 +117,7 @@ class MyApp : public cinder::app::App {
   /**
    * Time For Winning
    */
-  int win_time = 60;
+  int win_time = 120;
 
  private:
   /**

@@ -10,7 +10,6 @@
 #include <gflags/gflags.h>
 #include <cinder/Timer.h>
 #include <cinder/Rand.h>
-#include <rph/SoundPlayer.h>
 
 namespace myapp {
 
@@ -299,7 +298,7 @@ void MyApp::DrawTimer() const {
 void MyApp::DrawEndGameScreen() {
   int time_left = win_time - timer.getSeconds();
 
-  if (current_map == "maze3" || time_left <= 0) {
+  if (current_map == "end_screen" || time_left <= 0) {
     std::string text;
     const cinder::Color color = {1, 1, 1};
     const cinder::ivec2 size = {800, 800};
@@ -314,7 +313,7 @@ void MyApp::DrawEndGameScreen() {
     is_left_valid = false;
     is_right_valid = false;
 
-    if (current_map == "maze3") {
+    if (current_map == "end_screen") {
       text = game_win;
     } else {
       text = game_over;
