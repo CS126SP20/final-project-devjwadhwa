@@ -10,7 +10,7 @@
 #include <gflags/gflags.h>
 #include <cinder/Timer.h>
 #include <cinder/Rand.h>
-
+#include <rph/SoundPlayer.h>
 
 namespace myapp {
 
@@ -21,9 +21,6 @@ using cinder::TextBox;
 using mylibrary::Direction;
 using mylibrary::Location;
 
-const int kDimension = 16;
-const int kTile = 50;
-
 cinder::Timer timer = new cinder::Timer;
 
 MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
@@ -32,12 +29,11 @@ void MyApp::setup() {
   timer.start();
 
   // Reads all maps and background images
-  game_mapper_.ReadBackgroundImages();
-  game_mapper_.ReadMaps();
+  game_map_.ReadBackgroundImagesFile();
+  game_map_.ReadMapsFile();
 
   // Initializing prisoner direction
-  prisoner_dir_state = static_cast<int>(Direction::kDown);
-
+  prisoner_direction = static_cast<int>(Direction::kDown);
   PlayBackgroundMusic();
 }
 
@@ -48,28 +44,28 @@ void MyApp::update() {
   int curr_row = location.Col();
 
   // Gets the location of the character in the parallel map
-  Location player_parallel_loc =
-      game_mapper_.GetPlayerParallelLoc(
-          game_mapper_.GetMaps()[map_key],game_engine_);
+  Location player_parallel_map_loc =
+      game_map_.GetParallelMapLoc(
+          game_map_.GetAllMaps()[map_key],game_engine_);
 
-  // Gets the key to the current map
-  current_map = game_mapper_.GetBackgroundKey();
+  // Gets the current map
+  current_map = game_map_.GetCurrentMapName();
 
   // Gets the key to the parallel map
-  map_key = game_mapper_.GetParallelMapNum();
+  map_key = game_map_.GetParallelMapNum();
 
   // Resets the location of the player in the parallel map
-  ResetLoc(player_parallel_loc);
+  ResetLoc(player_parallel_map_loc);
 
   // Checks if the next move is into a wall
   is_up_valid =
-      game_mapper_.GetMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
+      game_map_.GetAllMaps()[map_key].cartesian[curr_row - 1][curr_col] != '1';
   is_down_valid =
-      game_mapper_.GetMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
+      game_map_.GetAllMaps()[map_key].cartesian[curr_row + 1][curr_col] != '1';
   is_left_valid =
-      game_mapper_.GetMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
+      game_map_.GetAllMaps()[map_key].cartesian[curr_row][curr_col - 1] != '1';
   is_right_valid =
-      game_mapper_.GetMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
+      game_map_.GetAllMaps()[map_key].cartesian[curr_row][curr_col + 1] != '1';
 }
 
 void MyApp::draw() {
@@ -89,7 +85,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_DOWN:
     case KeyEvent::KEY_s: {
       CheckMoveValidity(event);
-      prisoner_dir_state = static_cast<int>(Direction::kDown);
+      prisoner_direction = static_cast<int>(Direction::kDown);
       step_down++;
       DrawPrisoner();
       game_engine_.Step();
@@ -99,7 +95,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_UP:
     case KeyEvent::KEY_w: {
       CheckMoveValidity(event);
-      prisoner_dir_state = static_cast<int>(Direction::kUp);
+      prisoner_direction = static_cast<int>(Direction::kUp);
       step_up++;
       DrawPrisoner();
       game_engine_.Step();
@@ -109,7 +105,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_LEFT:
     case KeyEvent::KEY_a: {
       CheckMoveValidity(event);
-      prisoner_dir_state = static_cast<int>(Direction::kLeft);
+      prisoner_direction = static_cast<int>(Direction::kLeft);
       step_left++;
       DrawPrisoner();
       game_engine_.Step();
@@ -119,7 +115,7 @@ void MyApp::keyDown(KeyEvent event) {
     case KeyEvent::KEY_RIGHT:
     case KeyEvent::KEY_d: {
       CheckMoveValidity(event);
-      prisoner_dir_state = static_cast<int>(Direction::kRight);
+      prisoner_direction = static_cast<int>(Direction::kRight);
       step_right++;
       DrawPrisoner();
       game_engine_.Step();
@@ -180,28 +176,28 @@ void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
   const Location loc = game_engine_.GetPrisoner().GetLoc();
 
-  if (prisoner_dir_state == static_cast<int>(Direction::kDown)) {
+  if (prisoner_direction == static_cast<int>(Direction::kDown)) {
     if (step_down % 2 == 1) {
       image_path = cinder::fs::path("down_1.png");
     } else {
       image_path = cinder::fs::path("down_2.png");
     }
 
-  } else if (prisoner_dir_state == static_cast<int>(Direction::kUp)) {
+  } else if (prisoner_direction == static_cast<int>(Direction::kUp)) {
     if (step_up % 2 == 1) {
       image_path = cinder::fs::path("up_1.png");
     } else {
       image_path = cinder::fs::path("up_2.png");
     }
 
-  } else if (prisoner_dir_state == static_cast<int>(Direction::kLeft)) {
+  } else if (prisoner_direction == static_cast<int>(Direction::kLeft)) {
     if (step_left % 2 == 1) {
       image_path = cinder::fs::path("left_1.png");
      } else {
        image_path = cinder::fs::path("left_2.png");
     }
 
-  } else if (prisoner_dir_state == static_cast<int>(Direction::kRight)) {
+  } else if (prisoner_direction == static_cast<int>(Direction::kRight)) {
     if (step_right % 2 == 1) {
       image_path = cinder::fs::path("right_1.png");
     } else {
@@ -329,6 +325,8 @@ void MyApp::DrawEndGameScreen() {
 }
 
 void MyApp::PlayBackgroundMusic() {
+//  rph::SoundPlayerRef background;
+//  background = rph::SoundPlayer::create(loadAsset("sergeistern_8bitretromania_105_proud_music_preview.mp3"));
   cinder::audio::SourceFileRef sourceFile =
       cinder::audio::load(
           cinder::app::loadAsset ("background.mp3"));
@@ -338,7 +336,7 @@ void MyApp::PlayBackgroundMusic() {
 }
 
 void MyApp::ResetLoc(Location location) {
-  if (game_mapper_.IsScreenChange()) {
+  if (game_map_.IsScreenChange()) {
     game_engine_.Reset(location);
   }
 }

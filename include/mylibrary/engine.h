@@ -19,14 +19,13 @@ class Engine {
   Engine(int width, int height);
 
   /**
-   * Executes a time step: moves the prisoner etc.
+   * Setting definitions for Steps
+   *
+   * @param direction : The direction the Prisoner is facing
+   *
+   * @return The new location
    */
-  void Step();
-
-  /**
-   * Changes the direction of the prisoner for the next time step.
-   */
-  void SetDirection(Direction);
+  Location FromDirection(const Direction direction);
 
   /**
    * Getter for the Prisoner.
@@ -36,13 +35,14 @@ class Engine {
   Prisoner GetPrisoner() const;
 
   /**
-   * Setting definitions for Steps
-   *
-   * @param direction : The direction the Prisoner is facing
-   *
-   * @return The new location
+   * Executes a time step: moves the prisoner etc.
    */
-  Location FromDirection(const Direction direction);
+  void Step();
+
+  /**
+   * Changes the direction of the prisoner for the next time step.
+   */
+  void SetDirection(Direction);
 
   /**
    * Getter for the Direction.

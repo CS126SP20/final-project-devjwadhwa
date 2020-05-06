@@ -151,35 +151,35 @@ TEST_CASE("Prisoner Location", "[prisoner][location][direction]") {
 
 TEST_CASE("Map keys and Map Screens", "[map][key][background]") {
   Map testing_map;
-  testing_map.ReadBackgroundImages();
-  testing_map.ReadMaps();
+  testing_map.ReadBackgroundImagesFile();
+  testing_map.ReadMapsFile();
 
-  std::vector<Map> testing_map_screens = testing_map.GetMaps();
+  std::vector<Map> testing_map_screens = testing_map.GetAllMaps();
 
   SECTION("Number of Screens") { REQUIRE(testing_map_screens.size() == 5); }
 
   SECTION("Image Backgrounds") {
     std::string image_background = "intro.png";
-    REQUIRE(testing_map.GetBackgroundKey() == image_background);
+    REQUIRE(testing_map.GetCurrentMapName() == image_background);
     REQUIRE(testing_map.GetParallelMapNum() == 0);
   }
 
   SECTION("Map Key") {
-    int map_key = testing_map.GetCurrMapKey(test_map);
+    int map_key = testing_map.GetCurrentMapKey(test_map);
     REQUIRE(map_key == 2);
   }
 }
 
 TEST_CASE("Screen Change", "[map][key][background]") {
   Map testing_map;
-  testing_map.ReadBackgroundImages();
-  testing_map.ReadMaps();
+  testing_map.ReadBackgroundImagesFile();
+  testing_map.ReadMapsFile();
 
   int row = 0;
   int col = 0;
 
   Engine testing_engine(row, col);
-  Location test_loc = testing_map.GetPlayerParallelLoc(test_map, testing_engine);
+  Location test_loc = testing_map.GetParallelMapLoc(test_map, testing_engine);
 
   SECTION("No Screen Change") {
     REQUIRE(!testing_map.IsScreenChange());
@@ -190,7 +190,7 @@ TEST_CASE("Screen Change", "[map][key][background]") {
   }
 
   testing_engine.Reset(Location(15, 1));
-  Location new_location = testing_map.GetPlayerParallelLoc(test_map, testing_engine);
+  Location new_location = testing_map.GetParallelMapLoc(test_map, testing_engine);
 
   SECTION("Screen Change") {
     REQUIRE(testing_map.IsScreenChange());

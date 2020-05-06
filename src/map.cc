@@ -23,7 +23,7 @@ Map::Map(std::vector<std::vector<char>> game_map) {
   }
 }
 
-void Map::ReadBackgroundImages() {
+void Map::ReadBackgroundImagesFile() {
   std::string background_file =
       "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Trial/assets/background.txt";
   std::ifstream images_file(background_file);
@@ -37,39 +37,40 @@ void Map::ReadBackgroundImages() {
   }
 }
 
-void Map::ReadMaps() {
-  int maze_count = 0;
-  std::string maze_file =
+void Map::ReadMapsFile() {
+  int number_of_maps = 0;
+  std::string maps_file =
       "C:/Users/devjw/CLionProjects/cinder_0.9.2_vc2015/projects/Trial/assets/maze.txt";
-  std::ifstream file(maze_file);
+  std::ifstream file(maps_file);
 
   while (!file.eof()) {
-    std::string line_maze;
-    std::getline(file, line_maze);
+    std::string line_map;
+    std::getline(file, line_map);
 
     // Ignores empty lines, else setups Map
-    if (!line_maze.empty()) {
-      SetupMap(line_maze);
-      maze_count++;
+    if (!line_map.empty()) {
+      SetupMap(line_map);
+      number_of_maps++;
 
       // Ends one map
-      if (maze_count == kDimension) {
+      if (number_of_maps == kDimension) {
         Map game_map = Map(map);
-        maze_maps.push_back(game_map);
+        all_maps.push_back(game_map);
 
         // Repeats the same
-        maze_count = 0;
+        number_of_maps = 0;
         map.clear();
       }
     }
   }
 }
 
+std::vector<Map> Map::GetAllMaps() {
+  return all_maps;
+}
+
 void Map::SetupMap(std::string map_line) {
   std::vector<char> map_char;
-
-  // Reserves space for each line
-  map_char.reserve(kDimension);
 
   // Pushes back each char
   for (int i = 0; i < kDimension; i++) {
@@ -80,25 +81,24 @@ void Map::SetupMap(std::string map_line) {
   map.push_back(map_char);
 }
 
-std::string Map::GetBackgroundKey() {
-  std::string key;
+std::string Map::GetCurrentMapName() {
+  std::string curr_map;
   for (int i = 0; i < background_images.size(); i++) {
-    if (i == screen_num_) {
-      std::cout<<background_images[i]<<std::endl;
-      key = background_images[i];
+    if (i == parallel_map_num) {
+      curr_map = background_images[i];
     }
   }
-  return key;
+  return curr_map;
 }
 
-int Map::GetCurrMapKey(const Map& current_map) {
+int Map::GetCurrentMapKey(const Map& current_map) {
   int count = 0;
-  for (int i = 0; i < maze_maps.size(); i++) {
+  for (int i = 0; i < all_maps.size(); i++) {
     for (int j = 0; j < kDimension; j++) {
       for (int k = 0; k < kDimension; k++) {
 
         // Checking similarity block wise
-        if (maze_maps[i].cartesian[j][k] == current_map.cartesian[j][k]) {
+        if (all_maps[i].cartesian[j][k] == current_map.cartesian[j][k]) {
           count++;
 
           // Checks if the current map is EXACTLY similar to the ith map
@@ -115,12 +115,12 @@ int Map::GetCurrMapKey(const Map& current_map) {
 }
 
 int Map::GetParallelMapKey(int key, char door) {
-  for (int i = 0; i < maze_maps.size(); i++) {
+  for (int i = 0; i < all_maps.size(); i++) {
     for (int j = 0; j < kDimension; j++) {
       for (int k = 0; k < kDimension; k++) {
 
         // Gets the map with the same door point as the current one
-        if (maze_maps[i].cartesian[j][k] == door && i != key) {
+        if (all_maps[i].cartesian[j][k] == door && i != key) {
           return i;
         }
       }
@@ -129,17 +129,18 @@ int Map::GetParallelMapKey(int key, char door) {
   return 0;
 }
 
-Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
+Location Map::GetParallelMapLoc(const Map& current_map, Engine engine) {
   Location loc = engine.GetPrisoner().GetLoc();
   int curr_row = loc.Col();
   int curr_col = loc.Row();
 
   for (int j = 0; j < exits.size(); j++) {
     if (current_map.cartesian[curr_row][curr_col] == exits.at(j)) {
-      screen_num_ = GetParallelMapKey(GetCurrMapKey(current_map),
+      parallel_map_num = GetParallelMapKey(GetCurrentMapKey(current_map),
                                            exits.at(j));
       is_screen_change_ = true;
 
+      // Sets the location for different Scenarios
       if (engine.GetDirection() == Direction::kUp) {
         return {curr_col, kDimension - curr_row - 1};
       } else if (engine.GetDirection() == Direction::kDown) {
@@ -154,17 +155,12 @@ Location Map::GetPlayerParallelLoc(const Map& current_map, Engine engine) {
   return loc;
 }
 
-
-std::vector<Map> Map::GetMaps() {
-  return maze_maps;
+int Map::GetParallelMapNum() {
+  return parallel_map_num;
 }
 
 bool Map::IsScreenChange() {
   return is_screen_change_;
-}
-
-int Map::GetParallelMapNum() {
-  return screen_num_;
 }
 
 }  // namespace mylibrary

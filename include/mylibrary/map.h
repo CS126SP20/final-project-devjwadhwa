@@ -35,12 +35,19 @@ class Map {
   /**
    * Reads all background images from the txt file
    */
-  void ReadBackgroundImages();
+  void ReadBackgroundImagesFile();
 
   /**
    * Reads all maps from the text file
    */
-  void ReadMaps();
+  void ReadMapsFile();
+
+  /**
+  * Gets all the maps
+  *
+  * @return A vector containing all the maps
+  */
+  std::vector<Map> GetAllMaps();
 
   /**
    * Sets up map line by line
@@ -50,19 +57,19 @@ class Map {
   void SetupMap(std::string map_line);
 
   /**
-   * Gets all the maps
-   *
-   * @return A vector containing all the maps
-   */
-  std::vector<Map> GetMaps();
+  * Gets the current map's string name
+  * @return The name
+  */
+  std::string GetCurrentMapName();
 
   /**
    * Gets the current map's key
    *
-   * @param current_map : A map object of the current map
+   * @param current_map : Current Map
+   *
    * @return The Key
    */
-  int GetCurrMapKey(const Map& current_map);
+  int GetCurrentMapKey(const Map& current_map);
 
   /**
    * Gets the parallel map's key
@@ -75,20 +82,6 @@ class Map {
   int GetParallelMapKey(int key, char door);
 
   /**
-   * Bool which tells if the screen is changing
-   *
-   * @return True if the screen changes
-   */
-  bool IsScreenChange();
-
-  /**
-   * Gets the Parallel map's key
-   *
-   * @return The key
-   */
-  int GetParallelMapNum();
-
-  /**
    * Gets the Location of the Prisoner in the Parallel Map
    *
    * @param current_map : The current Map
@@ -96,8 +89,21 @@ class Map {
    *
    * @return The location of the Prisoner
    */
-  Location GetPlayerParallelLoc(const Map& current_map, Engine engine);
-  std::string GetBackgroundKey();
+  Location GetParallelMapLoc(const Map& current_map, Engine engine);
+
+  /**
+   * Gets the Parallel map's number
+   *
+   * @return The number
+   */
+  int GetParallelMapNum();
+
+  /**
+   * Bool which tells if the screen is changing
+   *
+   * @return True if the screen changes
+   */
+  bool IsScreenChange();
 
  private:
   /**
@@ -113,7 +119,7 @@ class Map {
   /**
    * Screen number
    */
-  int screen_num_{};
+  int parallel_map_num{};
 
   /**
    * Vector of strings saving every background image
@@ -128,7 +134,7 @@ class Map {
   /**
    * Vector of Maps saving all the individual maps
    */
-  std::vector<mylibrary::Map> maze_maps;
+  std::vector<mylibrary::Map> all_maps;
 
   /**
    * Vector of char saving each map

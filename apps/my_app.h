@@ -24,6 +24,16 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
+  /**
+   * Dimension of screen
+   */
+  const int kDimension = 16;
+
+  /**
+   * Tile Size for the game
+   */
+  const int kTile = 50;
+
   /*
    * Object of Game Engine class
    */
@@ -32,12 +42,17 @@ class MyApp : public cinder::app::App {
   /**
    * Object of Map class
    */
-  mylibrary::Map game_mapper_;
+  mylibrary::Map game_map_;
 
   /**
    * Constant which decides the direction state of the prisoner
    */
-  int prisoner_dir_state;
+  int prisoner_direction;
+
+  /**
+   * The map key
+   */
+  int map_key = 0;
 
   /**
    * Initializing number of steps in each direction
@@ -55,10 +70,6 @@ class MyApp : public cinder::app::App {
   bool is_left_valid = true;
   bool is_right_valid = true;
 
-  /**
-   * The map key
-   */
-  int map_key = 0;
 
   /**
    * Bool for if user wants to interact

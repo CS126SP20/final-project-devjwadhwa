@@ -7,6 +7,14 @@
 
 namespace mylibrary {
 
+Engine::Engine(int width, int height)
+    : width_(width),
+      height_(height),
+      direction_(Direction::kUp),
+      last_direction_(Direction::kUp),
+      prisoner_(Location(7,10)) {
+}
+
 // Converts a direction into a delta location (Inspired from Snake)
 Location Engine::FromDirection(const Direction direction) {
   switch (direction) {
@@ -27,14 +35,6 @@ Location Engine::FromDirection(const Direction direction) {
 
 Prisoner Engine::GetPrisoner() const {
   return prisoner_;
-}
-
-Engine::Engine(int width, int height)
-  : width_(width),
-      height_(height),
-      direction_(Direction::kUp),
-      last_direction_(Direction::kUp),
-      prisoner_(Location(7,10)) {
 }
 
 void Engine::Step() {
