@@ -254,7 +254,7 @@ void MyApp::DrawInteractiveText(std::string map) {
 
       std::string text = intro;
       if (map == "jail") {
-        text = jail;
+        text = jail ;
       } else if (map == "tunnel") {
         text = tunnel;
       } else if (map == "maze1") {
@@ -265,8 +265,8 @@ void MyApp::DrawInteractiveText(std::string map) {
         text = maze3;
       } else if (map == "maze4") {
         text = maze4;
-      } else if (map == "maze5") {
-        text = maze5;
+      } else if (map == "end_screen") {
+        text = end_screen;
       }
 
       const cinder::Color color = {1, 1, 1};
@@ -298,7 +298,7 @@ void MyApp::DrawTimer() const {
 void MyApp::DrawEndGameScreen() {
   int time_left = win_time - timer.getSeconds();
 
-  if (current_map == "end_screen" || time_left <= 0) {
+  if (current_map == "end" || time_left <= 0) {
     std::string text;
     const cinder::Color color = {1, 1, 1};
     const cinder::ivec2 size = {800, 800};
@@ -313,7 +313,7 @@ void MyApp::DrawEndGameScreen() {
     is_left_valid = false;
     is_right_valid = false;
 
-    if (current_map == "end_screen") {
+    if (current_map == "end") {
       text = game_win;
     } else {
       text = game_over;

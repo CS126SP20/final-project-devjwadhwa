@@ -5,4 +5,5 @@ maze1
 maze2
 maze3
 maze4
-maze5
+end_screen
+end

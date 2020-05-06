@@ -105,8 +105,8 @@ class MyApp : public cinder::app::App {
   std::string maze1 = "Maze1 boy";
   std::string maze2 = "Maze2 boy";
   std::string maze3 = "Maze3 boy";
-  std::string maze4 = "Maze4";
-  std::string maze5 = "Maze5";
+  std::string maze4 = "Maze4 boy";
+  std::string end_screen = "end_screen boy";
 
   /**
    * End game and Game over Text
