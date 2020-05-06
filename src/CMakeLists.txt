@@ -20,7 +20,7 @@ ci_make_library(
         SOURCES      ${SOURCE_LIST}
         INCLUDES     "${FinalProject_SOURCE_DIR}/include"
         LIBRARIES     gflags sqlite-modern-cpp sqlite3
-        BLOCKS
+        BLOCKS Cinder-SoundPlayer
 )
 
 # We need this directory, and users of our library will need it too
