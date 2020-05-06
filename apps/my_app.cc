@@ -257,7 +257,7 @@ void MyApp::DrawInteractiveText(std::string map) {
     // Once hit - the box pops up, twice - it closes
     if (draw_textbox_count % 2 == 1) {
 
-      std::string text = Intro;
+      std::string text = intro;
       if (map == "jail") {
         text = jail;
       } else if (map == "tunnel") {
@@ -291,7 +291,7 @@ void MyApp::DrawInteractiveText(std::string map) {
 }
 
 void MyApp::DrawTimer() const {
-  int time_left = 90 - timer.getSeconds();
+  int time_left = win_time - timer.getSeconds();
   const std::string text = (std::to_string(time_left));
   const cinder::Color color = {255, 255, 0};
   const cinder::ivec2 size = {70, 50};
@@ -301,22 +301,30 @@ void MyApp::DrawTimer() const {
 }
 
 void MyApp::DrawEndGameScreen() {
-  int time_left = 90 - timer.getSeconds();
-  if (time_left <= 0) {
-    music_background->stop();
-    timer.stop();
+  int time_left = win_time - timer.getSeconds();
 
-    const std::string text = "Game Over";
+  if (current_map == "maze3" || time_left <= 0) {
+    std::string text;
     const cinder::Color color = {1, 1, 1};
     const cinder::ivec2 size = {800, 800};
     const cinder::vec2 loc = {400, 400};
-    PrintText(text, color, size, loc);
+
+    music_background->stop();
+    timer.stop();
 
     // Stops the player from moving when the textbox is on
     is_up_valid = false;
     is_down_valid = false;
     is_left_valid = false;
     is_right_valid = false;
+
+    if (current_map == "maze3") {
+      text = game_win;
+    } else {
+      text = game_over;
+    }
+
+    PrintText(text, color, size, loc);
   }
 }
 

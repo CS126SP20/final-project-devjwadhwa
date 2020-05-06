@@ -85,15 +85,28 @@ class MyApp : public cinder::app::App {
    */
   cinder::audio::VoiceRef music_background;
 
-  std::string Intro = "Intro";
-  std::string jail = "Jail";
-  std::string tunnel = "Tunnel";
-  std::string maze1 = "Maze1";
-  std::string maze2 = "Maze2";
-  std::string maze3 = "Maze3";
+  /**
+   * Interactive Text for each map
+   */
+  std::string intro = "Intro boy";
+  std::string jail = "Jail boy";
+  std::string tunnel = "Tunnel boy";
+  std::string maze1 = "Maze1 boy";
+  std::string maze2 = "Maze2 boy";
+  std::string maze3 = "Maze3 boy";
   std::string maze4 = "Maze4";
   std::string maze5 = "Maze5";
 
+  /**
+   * End game and Game over Text
+   */
+  std::string game_over = "Game Over";
+  std::string game_win = "You Win";
+
+  /**
+   * Time For Winning
+   */
+  int win_time = 60;
 
  private:
   /**
