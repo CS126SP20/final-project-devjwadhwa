@@ -7,7 +7,6 @@ Author: Dev Wadhwa
 ### Project Description:
  My project will be an implementation of a Prison Break.
  The objective of this game is to get out of the prison maze as soon as possible.  
- There may be more than one ways to do this, but there may also be dead ends.
     
 ### Motivation:
  Prison Break is an implementation of Maze Runner, a game the author played while growing up with his elder brother.
@@ -34,16 +33,15 @@ Author: Dev Wadhwa
 #### Week 3 - 
 ##### Engine: 
 * Changes screens
-* Detects the checkpoints achieved
 * Reject invalid moves (e.g. moving through walls)
 * Notes the Time taken by the player
+* Detect when Player wins
 * Detect when Game is over
 
 ##### Graphics: 
 Development of :-
-* Leader board
-* Pause game menu
-* Game over menu
+* Game over screen
+* Game win screen
 
 ## External Libraries
 
@@ -52,35 +50,10 @@ Development of :-
 2. [Json](https://github.com/nlohmann/json) for the maps.
 3. [Cinder-UI](https://github.com/rezaali/Cinder-UI) if needed to debug UI controls.
 4. [gflags](https://github.com/gflags/gflags) for Command-Line arguments.
+5. [Sound player](https://github.com/redpaperheart/Cinder-SoundPlayer) for Sound PLayer.
 
 ## Extensions/Extras
 * Addition of policemen (monsters)
-* Implementation of an inventory involving items which help the player solve the checkpoint puzzles
 * Implementation of barriers to delay the player 
 * Having a timer instead of a stopwatch
-* AI Solving Algorithm (Play against Computer)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Addition of a teleporter in a map
