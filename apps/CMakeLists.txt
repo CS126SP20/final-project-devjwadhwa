@@ -13,7 +13,7 @@ ci_make_app(
     CINDER_PATH ${CINDER_PATH}
     SOURCES     ${SOURCE_LIST}
     LIBRARIES   mylibrary gflags sqlite-modern-cpp sqlite3
-    BLOCKS      Cinder-SoundPLayer
+    BLOCKS ciAnimatedGif
 )
 
 target_compile_features(cinder-myapp PRIVATE cxx_std_14)
