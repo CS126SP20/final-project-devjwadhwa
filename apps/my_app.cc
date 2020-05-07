@@ -2,15 +2,8 @@
 
 #include "my_app.h"
 
-#include <cinder/app/App.h>
-#include <cinder/gl/Texture.h>
-#include <cinder/gl/draw.h>
-#include <cinder/Color.h>
-#include <cinder/gl/gl.h>
-#include <cinder/Timer.h>
 #include <cinder/Rand.h>
 #include <ciAnimatedGif.h>
-#include <rph/SoundPlayer.h>
 
 namespace myapp {
 
