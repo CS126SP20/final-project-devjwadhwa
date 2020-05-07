@@ -8,8 +8,9 @@
 
 namespace mylibrary {
 
-// Represents a location on the board.
 class Location {
+
+  // Represents a location on the board.
  public:
   Location(int row, int col);
 

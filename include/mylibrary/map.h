@@ -7,10 +7,9 @@
 #include <string>
 #include <vector>
 
-
 namespace mylibrary {
-using mylibrary::Engine;
 
+using mylibrary::Engine;
 
 class Map {
  public:
@@ -57,9 +56,10 @@ class Map {
   void SetupMap(std::string map_line);
 
   /**
-  * Gets the current map's string name
-  * @return The name
-  */
+    * Gets the current map's string name
+    *
+    * @return The name
+    */
   std::string GetCurrentMapName();
 
   /**

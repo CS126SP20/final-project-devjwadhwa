@@ -15,7 +15,7 @@ layout.
 ## About
 
 My project is an adaptation of a maze runner game the developer played in his childhood. The point is to
-run as fast and possible and reach the end of the maze.
+run as fast and possible and reach the end of the maze, while enjoying the different screens the player is in.
 
 ## Dependencies
 

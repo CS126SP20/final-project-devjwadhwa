@@ -156,10 +156,10 @@ TEST_CASE("Map keys and Map Screens", "[map][key][background]") {
 
   std::vector<Map> testing_map_screens = testing_map.GetAllMaps();
 
-  SECTION("Number of Screens") { REQUIRE(testing_map_screens.size() == 5); }
+  SECTION("Number of Screens") { REQUIRE(testing_map_screens.size() == 9); }
 
   SECTION("Image Backgrounds") {
-    std::string image_background = "intro.png";
+    std::string image_background = "intro";
     REQUIRE(testing_map.GetCurrentMapName() == image_background);
     REQUIRE(testing_map.GetParallelMapNum() == 0);
   }

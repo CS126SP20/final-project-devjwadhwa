@@ -14,6 +14,7 @@ class Engine {
    * Creates a new window of the given size.
    *
    * @param width : Width of the window
+   *
    * @param height : Height of the window
    */
   Engine(int width, int height);

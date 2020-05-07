@@ -1,6 +1,6 @@
 # CS 126 Final Project Proposal - Prison Break
 
-Author: Dev Wadhwa
+Developer: Dev Wadhwa
 
 ---
 

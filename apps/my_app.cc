@@ -27,6 +27,7 @@ MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 void MyApp::setup() {
   timer.start();
 
+  // Puts in a GIF
    cute_gif = ci::ciAnimatedGif::create(loadAsset("hello.gif"));
 
   // Reads all maps and background images
@@ -133,8 +134,11 @@ void MyApp::keyDown(KeyEvent event) {
     }
 
     case KeyEvent::KEY_SPACE: {
-        if (mSound->isPlaying()) mSound->pause();
-        else                     mSound->play();
+        if (mSound->isPlaying()) {
+          mSound->pause();
+        } else {
+          mSound->play();
+        }
         break;
     }
   }
@@ -178,8 +182,6 @@ void MyApp::CheckMoveValidity(const cinder::app::KeyEvent& event) {
     game_engine_.SetDirection(Direction::kNull);
   }
 }
-
-// TODO:: Optimize DrawPrisoner conditions
 
 void MyApp::DrawPrisoner() {
   cinder::gl::color(1, 1, 0);
