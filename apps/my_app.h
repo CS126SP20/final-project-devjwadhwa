@@ -3,12 +3,14 @@
 #ifndef FINALPROJECT_APPS_MYAPP_H_
 #define FINALPROJECT_APPS_MYAPP_H_
 
+#include <ciAnimatedGif.h>
 #include <cinder/app/App.h>
 #include <cinder/audio/Voice.h>
 #include <mylibrary/direction.h>
 #include <mylibrary/engine.h>
-#include <mylibrary/prisoner.h>
 #include <mylibrary/map.h>
+#include <mylibrary/prisoner.h>
+
 #include "cinder/Text.h"
 #include "cinder/gl/Texture.h"
 
@@ -165,6 +167,9 @@ class MyApp : public cinder::app::App {
    * Draws a timer for the game
    */
   void DrawTimer() const;
+
+  ci::ciAnimatedGifRef mGif;
+
 };
 
 }  // namespace myapp

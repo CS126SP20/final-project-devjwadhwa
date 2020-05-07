@@ -10,13 +10,13 @@
 #include <gflags/gflags.h>
 #include <cinder/Timer.h>
 #include <cinder/Rand.h>
+#include <ciAnimatedGif.h>
 
 namespace myapp {
 
 using cinder::Rectf;
 using cinder::app::KeyEvent;
 using cinder::TextBox;
-
 using mylibrary::Direction;
 using mylibrary::Location;
 
@@ -26,6 +26,7 @@ MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 
 void MyApp::setup() {
   timer.start();
+  mGif = ci::ciAnimatedGif::create( loadAsset("hello.gif") );
 
   // Reads all maps and background images
   game_map_.ReadBackgroundImagesFile();
@@ -76,6 +77,8 @@ void MyApp::draw() {
   DrawInteractiveText(current_map);
   DrawTimer();
   DrawEndGameScreen();
+  mGif->draw();
+
 }
 
 void MyApp::keyDown(KeyEvent event) {
@@ -288,7 +291,7 @@ void MyApp::DrawInteractiveText(std::string map) {
 void MyApp::DrawTimer() const {
   int time_left = win_time - timer.getSeconds();
   const std::string text = (std::to_string(time_left));
-  const cinder::Color color = {255, 255, 0};
+  const cinder::Color color = {1, 0, 0};
   const cinder::ivec2 size = {70, 50};
   const cinder::vec2 loc = {400, 25};
 
