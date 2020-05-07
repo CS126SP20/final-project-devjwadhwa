@@ -51,6 +51,7 @@ Development of :-
 3. [Cinder-UI](https://github.com/rezaali/Cinder-UI) if needed to debug UI controls.
 4. [gflags](https://github.com/gflags/gflags) for Command-Line arguments.
 5. [Sound player](https://github.com/redpaperheart/Cinder-SoundPlayer) for Sound PLayer.
+6. [ciAnimatedGif](https://github.com/cwhitney/ciAnimatedGif) for cute GIFs.
 
 ## Extensions/Extras
 * Addition of policemen (monsters)

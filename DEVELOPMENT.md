@@ -36,7 +36,6 @@
 #### 04/02
 - [x] Added more maps to the game
 - [x] Added an Intro scene
-- [ ] Added JAVADOC style comments
 ---
 #### 04/03
 - [x] Added more screens to the game
@@ -46,17 +45,20 @@
 - [x] Added tests for operators
 - [x] Added tests for other functions
 - [x] Added JAVADOC style comments
-- [ ] Added interaction event
-- [ ] 
+- [x] Added interaction event
 ---
 #### 04/05
 - [x] Added Interaction functionality
 - [x] Added a Timer
 - [x] Added an End Game screen
 - [x] Added more maps
-- [ ] Added coins
-- [ ] Added score functionality
-
+---
+#### 04/06
+- [x] Added win game screen
+- [x] Added and implemented GIF CinderBlock
+- [x] Added and implemented SoundPlayer CinderBlock
+- [x] Added space bar functionality
+- [x] Added more maps
 # Development
 
 ---

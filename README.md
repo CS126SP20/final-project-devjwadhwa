@@ -27,6 +27,8 @@ For the implementation of this game, I will be using a couple of external/third-
 
 * [Cinder](https://github.com/cinder/Cinder) 
 * [catchorg/Catch2](https://github.com/catchorg/Catch2.git) 
+* [ciAnimatedGif](https://github.com/cwhitney/ciAnimatedGif)
+* [Cinder-SoundPlayer](https://github.com/redpaperheart/Cinder-SoundPlayer)
 
 ## Game Controls
 
@@ -39,4 +41,4 @@ For the implementation of this game, I will be using a couple of external/third-
 | `S / Down arrow key`   | Move down                                                   |
 | `D / Right arrow key`  | Move right                                                  |
 | `h`                    | Interact with the Game Screen                               |
-
+| `SPACE`                | Pause or Play Music                                         |
