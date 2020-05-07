@@ -19,8 +19,8 @@ ci_make_library(
         CINDER_PATH  ${CINDER_PATH}
         SOURCES      ${SOURCE_LIST}
         INCLUDES     "${FinalProject_SOURCE_DIR}/include"
-        LIBRARIES    gflags sqlite-modern-cpp sqlite3
-        BLOCKS ciAnimatedGif
+        LIBRARIES
+        BLOCKS ciAnimatedGif Cinder-SoundPlayer
 )
 
 # We need this directory, and users of our library will need it too

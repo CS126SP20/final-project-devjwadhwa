@@ -18,7 +18,7 @@ const int kDimension = 800;
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kDimension, kDimension);
   settings->setTitle("Prison Break - devjw2");
-  settings->setConsoleWindowEnabled();
+  //settings->setConsoleWindowEnabled();
 }
 
 }  // namespace myapp

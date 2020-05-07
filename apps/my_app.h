@@ -10,6 +10,7 @@
 #include <mylibrary/engine.h>
 #include <mylibrary/map.h>
 #include <mylibrary/prisoner.h>
+#include <rph/SoundPlayer.h>
 
 #include "cinder/Text.h"
 #include "cinder/gl/Texture.h"
@@ -35,6 +36,11 @@ class MyApp : public cinder::app::App {
    * Tile Size for the game
    */
   const int kTile = 50;
+
+  /**
+   * Time For Winning
+   */
+  const int kWinTime = 75;
 
   /*
    * Object of Game Engine class
@@ -96,7 +102,7 @@ class MyApp : public cinder::app::App {
   /**
    * Audio ref for background music
    */
-  cinder::audio::VoiceRef music_background;
+  rph::SoundPlayerRef mSound;
 
   /**
    * Interactive Text for each map
@@ -115,11 +121,6 @@ class MyApp : public cinder::app::App {
    */
   std::string game_over = "Game Over";
   std::string game_win = "You Win";
-
-  /**
-   * Time For Winning
-   */
-  int win_time = 120;
 
  private:
   /**
@@ -168,7 +169,10 @@ class MyApp : public cinder::app::App {
    */
   void DrawTimer() const;
 
-  ci::ciAnimatedGifRef mGif;
+  /**
+   * GIF object
+   */
+  ci::ciAnimatedGifRef cute_gif;
 
 };
 

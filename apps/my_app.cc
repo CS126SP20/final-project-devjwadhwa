@@ -7,10 +7,10 @@
 #include <cinder/gl/draw.h>
 #include <cinder/Color.h>
 #include <cinder/gl/gl.h>
-#include <gflags/gflags.h>
 #include <cinder/Timer.h>
 #include <cinder/Rand.h>
 #include <ciAnimatedGif.h>
+#include <rph/SoundPlayer.h>
 
 namespace myapp {
 
@@ -26,7 +26,8 @@ MyApp::MyApp() : game_engine_(kDimension, kDimension) {}
 
 void MyApp::setup() {
   timer.start();
-  mGif = ci::ciAnimatedGif::create( loadAsset("hello.gif") );
+
+   cute_gif = ci::ciAnimatedGif::create(loadAsset("hello.gif"));
 
   // Reads all maps and background images
   game_map_.ReadBackgroundImagesFile();
@@ -77,7 +78,7 @@ void MyApp::draw() {
   DrawInteractiveText(current_map);
   DrawTimer();
   DrawEndGameScreen();
-  mGif->draw();
+  cute_gif->draw();
 
 }
 
@@ -129,6 +130,12 @@ void MyApp::keyDown(KeyEvent event) {
       draw_textbox_count++;
       DrawInteractiveText(current_map);
       break;
+    }
+
+    case KeyEvent::KEY_SPACE: {
+        if (mSound->isPlaying()) mSound->pause();
+        else                     mSound->play();
+        break;
     }
   }
 }
@@ -255,6 +262,9 @@ void MyApp::DrawInteractiveText(std::string map) {
     // Once hit - the box pops up, twice - it closes
     if (draw_textbox_count % 2 == 1) {
 
+      // Pauses music
+      mSound->pause();
+
       std::string text = intro;
       if (map == "jail") {
         text = jail ;
@@ -289,9 +299,9 @@ void MyApp::DrawInteractiveText(std::string map) {
 }
 
 void MyApp::DrawTimer() const {
-  int time_left = win_time - timer.getSeconds();
+  int time_left = kWinTime - timer.getSeconds();
   const std::string text = (std::to_string(time_left));
-  const cinder::Color color = {1, 0, 0};
+  const cinder::Color color = {1, 1, 1};
   const cinder::ivec2 size = {70, 50};
   const cinder::vec2 loc = {400, 25};
 
@@ -299,7 +309,7 @@ void MyApp::DrawTimer() const {
 }
 
 void MyApp::DrawEndGameScreen() {
-  int time_left = win_time - timer.getSeconds();
+  int time_left = kWinTime - timer.getSeconds();
 
   if (current_map == "end" || time_left <= 0) {
     std::string text;
@@ -307,7 +317,8 @@ void MyApp::DrawEndGameScreen() {
     const cinder::ivec2 size = {800, 800};
     const cinder::vec2 loc = {400, 400};
 
-    music_background->stop();
+    // Stops music and timer
+    mSound->stop();
     timer.stop();
 
     // Stops the player from moving when the textbox is on
@@ -327,14 +338,8 @@ void MyApp::DrawEndGameScreen() {
 }
 
 void MyApp::PlayBackgroundMusic() {
-//  rph::SoundPlayerRef background;
-//  background = rph::SoundPlayer::create(loadAsset("sergeistern_8bitretromania_105_proud_music_preview.mp3"));
-  cinder::audio::SourceFileRef sourceFile =
-      cinder::audio::load(
-          cinder::app::loadAsset ("background.mp3"));
-  music_background = cinder::audio::Voice::create(sourceFile);
-
-  music_background->start();
+  mSound = rph::SoundPlayer::create(loadAsset("background.mp3"));
+  mSound->start();
 }
 
 void MyApp::ResetLoc(Location location) {
