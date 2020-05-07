@@ -245,7 +245,7 @@ void PrintText(const std::string& text, const C& color, const cinder::ivec2& siz
   // Draws a Textbox
   auto box = TextBox()
       .alignment(TextBox::CENTER)
-      .font(cinder::Font("Cooper Black", 40))
+      .font(cinder::Font("Cooper Black", 25))
       .size(size)
       .color(color)
       .backgroundColor(cinder::ColorA(0,0,0,0.7))

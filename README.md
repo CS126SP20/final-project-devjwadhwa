@@ -19,16 +19,27 @@ run as fast and possible and reach the end of the maze, while enjoying the diffe
 
 ## Dependencies
 
-* CMake
+* [Cinder 0.9.2](https://github.com/cinder/Cinder/releases)
+* [CMake](https://cmake.org/download/)
+* [Catch2](https://github.com/catchorg/Catch2.git) 
 * clang/clang++
 
 ## External Libraries/Third-party Libraries
 For the implementation of this game, I will be using a couple of external/third-party libraries listed below:
 
-* [Cinder](https://github.com/cinder/Cinder) 
-* [catchorg/Catch2](https://github.com/catchorg/Catch2.git) 
 * [ciAnimatedGif](https://github.com/cwhitney/ciAnimatedGif)
 * [Cinder-SoundPlayer](https://github.com/redpaperheart/Cinder-SoundPlayer)
+
+# Installation
+
+1. [Install Visual Studio from here](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2017).
+2. [Download Cinder 0.9.2 from here](https://libcinder.org/download).
+3. Follow the setup guide to set up [Cinder + Git](https://libcinder.org/docs/guides/git/index.html). 
+3. Install [SQLiteModernCpp](https://github.com/SqliteModernCpp/sqlite_modern_cpp) and [SQLite3](https://github.com/alex85k/sqlite3-cmake) 
+and follow [these instructions](http://srombauts.github.io/SQLiteCpp/) to add these libraries to the CMake files. 
+4. [Clone](https://github.com/CS126SP20/final-project-devjwadhwa.git) this repository using git clone.
+5. Build and run the project from Visual Studio. 
+
 
 ## Game Controls
 

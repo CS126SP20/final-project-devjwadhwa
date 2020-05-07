@@ -78,7 +78,6 @@ class MyApp : public cinder::app::App {
   bool is_left_valid = true;
   bool is_right_valid = true;
 
-
   /**
    * Bool for if user wants to interact
    */
@@ -107,14 +106,42 @@ class MyApp : public cinder::app::App {
   /**
    * Interactive Text for each map
    */
-  std::string intro = "Intro boy";
-  std::string jail = "Jail boy";
-  std::string tunnel = "Tunnel boy";
-  std::string maze1 = "Maze1 boy";
-  std::string maze2 = "Maze2 boy";
-  std::string maze3 = "Maze3 boy";
-  std::string maze4 = "Maze4 boy";
-  std::string end_screen = "end_screen boy";
+  std::string intro = "Hello! Welcome to Prison Break!\n"
+      "As the title says, your main objective is to break out of the prison in the SPECIFIED amount of time. But for now,\n"
+      "Current Objective:\n"
+      "Use WASD or arrow keys to walk to the door";
+
+  std::string jail = "This is my prison cell. Isn’t it luxurious?\n"
+      "\n"
+      "Current Objective:\n"
+      "Explore my prison cell. Once you’re done, head to the next door.";
+
+  std::string tunnel = "I escaped? This is my gateway to freedom.\n"
+      "\n"
+      "Current Objective:\n"
+      "Find the exit from the tunnel.";
+
+  std::string maze1 = "This is my first maze. I need to get away before the police catch me. RUN\n"
+      "\n"
+      "Current Objective:\n"
+      "Find the door which leads you out.";
+  std::string maze2 = "This is my second maze. It looks LONG AND HARD \n"
+      "\n"
+      "Current Objective:\n"
+      "Move in circles until you find the exit.";
+
+  std::string maze3 = "This is the bridge. I see 2 princesses; shall I go pay my tributes?\n"
+      "\n"
+      "Current Objective: \n"
+      "Find the right bridge which gets you out.";
+
+  std::string maze4 = "Is this the last maze? I am incredibly tired. Why are there 3 doors?\n"
+      "Could I be teleported?\n"
+      "\n"
+      "Current Objective:\n"
+      "LEAVE. The Clock is ticking!";
+
+  std::string end_screen = "Congratulations. You are finally out. Enjoy the fresh air and the luxury.";
 
   /**
    * End game and Game over Text
