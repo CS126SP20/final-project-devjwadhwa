@@ -12,3 +12,31 @@ layout.
 **Author**: Dev Wadhwa - [`devjw2@illinois.edu`](mailto:devjw2@illinois.edu)
 
 ---------------------
+## About
+
+My project is an adaptation of a maze runner game the developer played in his childhood. The point is to
+run as fast and possible and reach the end of the maze.
+
+## Dependencies
+
+* CMake
+* clang/clang++
+
+## External Libraries/Third-party Libraries
+For the implementation of this game, I will be using a couple of external/third-party libraries listed below:
+
+* [Cinder](https://github.com/cinder/Cinder) 
+* [catchorg/Catch2](https://github.com/catchorg/Catch2.git) 
+
+## Game Controls
+
+#### Keyboard
+
+| Key                    | Action                                                      |
+|------------------------|-------------------------------------------------------------|
+| `W / Up arrow key`     | Move up                                                     |
+| `A / Left arrow key`   | Move left                                                   |
+| `S / Down arrow key`   | Move down                                                   |
+| `D / Right arrow key`  | Move right                                                  |
+| `h`                    | Interact with the Game Screen                               |
+
